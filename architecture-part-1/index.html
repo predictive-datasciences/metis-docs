@@ -1,0 +1,1785 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../architecture-overview/" rel="prev"/>
+<link href="../architecture-part-2/" rel="next"/>
+<link href="../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.14" name="generator"/>
+<title>Architecture - Data flow - Metis Docs</title>
+<link href="../assets/stylesheets/main.342714a4.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#metis-platform-architecture-part-1-data-flow">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Metis Docs" class="md-header__button md-logo" data-md-component="logo" href=".." title="Metis Docs">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Metis Docs
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Architecture - Data flow
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Metis Docs" class="md-nav__button md-logo" data-md-component="logo" href=".." title="Metis Docs">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Metis Docs
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Tech
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Tech
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_1">
+<span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architecture-overview/">
+<span class="md-ellipsis">
+    Introduction to Metis
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Architecture - Data flow
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Architecture - Data flow
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduction">
+<span class="md-ellipsis">
+      🌊 Introduction
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flow-architecture-overview">
+<span class="md-ellipsis">
+      🏗️ Data Flow Architecture Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#entry-point-request-routing">
+<span class="md-ellipsis">
+      🚪 Entry Point &amp; Request Routing
+    </span>
+</a>
+<nav aria-label="🚪 Entry Point &amp; Request Routing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nginx-reverse-proxy">
+<span class="md-ellipsis">
+      NGINX Reverse Proxy
+    </span>
+</a>
+<nav aria-label="NGINX Reverse Proxy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-responsibilities">
+<span class="md-ellipsis">
+      Key Responsibilities:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#routing-logic">
+<span class="md-ellipsis">
+      Routing Logic:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#multi-tenant-container-architecture">
+<span class="md-ellipsis">
+      Multi-Tenant Container Architecture
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#authentication-authorization-flow">
+<span class="md-ellipsis">
+      🔐 Authentication &amp; Authorization Flow
+    </span>
+</a>
+<nav aria-label="🔐 Authentication &amp; Authorization Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#token-based-security-model">
+<span class="md-ellipsis">
+      Token-Based Security Model
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#token-generation-methods">
+<span class="md-ellipsis">
+      Token Generation Methods
+    </span>
+</a>
+<nav aria-label="Token Generation Methods" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-app-login">
+<span class="md-ellipsis">
+      1. App Login 🔑
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-agent-login">
+<span class="md-ellipsis">
+      2. Agent Login 👥
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-server-to-server-s2s">
+<span class="md-ellipsis">
+      3. Server-to-Server (S2S) 🔗
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-validation-pipeline">
+<span class="md-ellipsis">
+      Security Validation Pipeline
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flow-patterns">
+<span class="md-ellipsis">
+      📊 Data Flow Patterns
+    </span>
+</a>
+<nav aria-label="📊 Data Flow Patterns" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#read-flows">
+<span class="md-ellipsis">
+      Read Flows 📖
+    </span>
+</a>
+<nav aria-label="Read Flows 📖" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#characteristics">
+<span class="md-ellipsis">
+      Characteristics:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+<span class="md-ellipsis">
+      Examples:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#write-flows">
+<span class="md-ellipsis">
+      Write Flows ✍️
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#state-machine-management">
+<span class="md-ellipsis">
+      🔄 State Machine Management
+    </span>
+</a>
+<nav aria-label="🔄 State Machine Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#finite-state-machine-implementation">
+<span class="md-ellipsis">
+      Finite State Machine Implementation
+    </span>
+</a>
+<nav aria-label="Finite State Machine Implementation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sample-state-configuration">
+<span class="md-ellipsis">
+      Sample State Configuration:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-features">
+<span class="md-ellipsis">
+      Key Features:
+    </span>
+</a>
+<nav aria-label="Key Features:" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-reliability-fault-tolerance">
+<span class="md-ellipsis">
+      1. Reliability &amp; Fault Tolerance
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-event-loop-architecture">
+<span class="md-ellipsis">
+      2. Event Loop Architecture
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-third-party-integration">
+<span class="md-ellipsis">
+      3. Third-Party Integration
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-driven-architecture">
+<span class="md-ellipsis">
+      📡 Event-Driven Architecture
+    </span>
+</a>
+<nav aria-label="📡 Event-Driven Architecture" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-publishing-processing">
+<span class="md-ellipsis">
+      Event Publishing &amp; Processing
+    </span>
+</a>
+<nav aria-label="Event Publishing &amp; Processing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-categories">
+<span class="md-ellipsis">
+      Event Categories:
+    </span>
+</a>
+<nav aria-label="Event Categories:" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#business-events">
+<span class="md-ellipsis">
+      Business Events 📈
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-events">
+<span class="md-ellipsis">
+      System Events ⚙️
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-processing-pipeline">
+<span class="md-ellipsis">
+      Event Processing Pipeline
+    </span>
+</a>
+<nav aria-label="Event Processing Pipeline" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-storage-analytics">
+<span class="md-ellipsis">
+      Event Storage &amp; Analytics:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-observability">
+<span class="md-ellipsis">
+      🔍 Monitoring &amp; Observability
+    </span>
+</a>
+<nav aria-label="🔍 Monitoring &amp; Observability" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#comprehensive-logging-strategy">
+<span class="md-ellipsis">
+      Comprehensive Logging Strategy
+    </span>
+</a>
+<nav aria-label="Comprehensive Logging Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-debugging-philosophy">
+<span class="md-ellipsis">
+      Production Debugging Philosophy
+    </span>
+</a>
+<nav aria-label="Production Debugging Philosophy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#request-lifecycle-logging">
+<span class="md-ellipsis">
+      Request Lifecycle Logging
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#log-levels-categories">
+<span class="md-ellipsis">
+      Log Levels &amp; Categories
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#audit-trail-management">
+<span class="md-ellipsis">
+      Audit Trail Management
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pitfalls-risk-management">
+<span class="md-ellipsis">
+      ⚠️ Pitfalls &amp; Risk Management
+    </span>
+</a>
+<nav aria-label="⚠️ Pitfalls &amp; Risk Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-pitfalls-mitigation-strategies">
+<span class="md-ellipsis">
+      Common Pitfalls &amp; Mitigation Strategies
+    </span>
+</a>
+<nav aria-label="Common Pitfalls &amp; Mitigation Strategies" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-queue-management-issues">
+<span class="md-ellipsis">
+      1. Queue Management Issues 🚨
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-workflow-timeout-handling">
+<span class="md-ellipsis">
+      2. Workflow Timeout Handling ⏰
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-state-machine-inconsistencies">
+<span class="md-ellipsis">
+      3. State Machine Inconsistencies 🔄
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-authentication-token-issues">
+<span class="md-ellipsis">
+      4. Authentication Token Issues 🔐
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-multi-tenant-data-isolation">
+<span class="md-ellipsis">
+      5. Multi-Tenant Data Isolation 🏢
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-alerting-strategy">
+<span class="md-ellipsis">
+      📊 Monitoring &amp; Alerting Strategy
+    </span>
+</a>
+<nav aria-label="📊 Monitoring &amp; Alerting Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-metrics-to-monitor">
+<span class="md-ellipsis">
+      Key Metrics to Monitor
+    </span>
+</a>
+<nav aria-label="Key Metrics to Monitor" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-metrics">
+<span class="md-ellipsis">
+      Performance Metrics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-metrics">
+<span class="md-ellipsis">
+      Health Metrics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#business-metrics">
+<span class="md-ellipsis">
+      Business Metrics
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alert-configuration">
+<span class="md-ellipsis">
+      Alert Configuration
+    </span>
+</a>
+<nav aria-label="Alert Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#critical-alerts">
+<span class="md-ellipsis">
+      Critical Alerts 🚨
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#warning-alerts">
+<span class="md-ellipsis">
+      Warning Alerts ⚠️
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps-future-enhancements">
+<span class="md-ellipsis">
+      🎯 Next Steps &amp; Future Enhancements
+    </span>
+</a>
+<nav aria-label="🎯 Next Steps &amp; Future Enhancements" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#immediate-improvements">
+<span class="md-ellipsis">
+      Immediate Improvements
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#future-enhancements">
+<span class="md-ellipsis">
+      Future Enhancements
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architecture-part-2/">
+<span class="md-ellipsis">
+    Architecture - Data storage
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architecture-part-3/">
+<span class="md-ellipsis">
+    Architecture - Data processing
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Coding guidelines
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+            Coding guidelines
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../python-guidelines/">
+<span class="md-ellipsis">
+    Python
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../go-guidelines/">
+<span class="md-ellipsis">
+    Go
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../repo-structure.md">
+<span class="md-ellipsis">
+    Repo-structure
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../testing.md">
+<span class="md-ellipsis">
+    Testing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../logging.md">
+<span class="md-ellipsis">
+    Logging
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../monitoring.md">
+<span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../error-handling.md">
+<span class="md-ellipsis">
+    Error handling
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../metrics.md">
+<span class="md-ellipsis">
+    Metrics
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../tracing.md">
+<span class="md-ellipsis">
+    Tracing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../configuration.md">
+<span class="md-ellipsis">
+    Configuration
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduction">
+<span class="md-ellipsis">
+      🌊 Introduction
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flow-architecture-overview">
+<span class="md-ellipsis">
+      🏗️ Data Flow Architecture Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#entry-point-request-routing">
+<span class="md-ellipsis">
+      🚪 Entry Point &amp; Request Routing
+    </span>
+</a>
+<nav aria-label="🚪 Entry Point &amp; Request Routing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#nginx-reverse-proxy">
+<span class="md-ellipsis">
+      NGINX Reverse Proxy
+    </span>
+</a>
+<nav aria-label="NGINX Reverse Proxy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-responsibilities">
+<span class="md-ellipsis">
+      Key Responsibilities:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#routing-logic">
+<span class="md-ellipsis">
+      Routing Logic:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#multi-tenant-container-architecture">
+<span class="md-ellipsis">
+      Multi-Tenant Container Architecture
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#authentication-authorization-flow">
+<span class="md-ellipsis">
+      🔐 Authentication &amp; Authorization Flow
+    </span>
+</a>
+<nav aria-label="🔐 Authentication &amp; Authorization Flow" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#token-based-security-model">
+<span class="md-ellipsis">
+      Token-Based Security Model
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#token-generation-methods">
+<span class="md-ellipsis">
+      Token Generation Methods
+    </span>
+</a>
+<nav aria-label="Token Generation Methods" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-app-login">
+<span class="md-ellipsis">
+      1. App Login 🔑
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-agent-login">
+<span class="md-ellipsis">
+      2. Agent Login 👥
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-server-to-server-s2s">
+<span class="md-ellipsis">
+      3. Server-to-Server (S2S) 🔗
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#security-validation-pipeline">
+<span class="md-ellipsis">
+      Security Validation Pipeline
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-flow-patterns">
+<span class="md-ellipsis">
+      📊 Data Flow Patterns
+    </span>
+</a>
+<nav aria-label="📊 Data Flow Patterns" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#read-flows">
+<span class="md-ellipsis">
+      Read Flows 📖
+    </span>
+</a>
+<nav aria-label="Read Flows 📖" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#characteristics">
+<span class="md-ellipsis">
+      Characteristics:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#examples">
+<span class="md-ellipsis">
+      Examples:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#write-flows">
+<span class="md-ellipsis">
+      Write Flows ✍️
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#state-machine-management">
+<span class="md-ellipsis">
+      🔄 State Machine Management
+    </span>
+</a>
+<nav aria-label="🔄 State Machine Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#finite-state-machine-implementation">
+<span class="md-ellipsis">
+      Finite State Machine Implementation
+    </span>
+</a>
+<nav aria-label="Finite State Machine Implementation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sample-state-configuration">
+<span class="md-ellipsis">
+      Sample State Configuration:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-features">
+<span class="md-ellipsis">
+      Key Features:
+    </span>
+</a>
+<nav aria-label="Key Features:" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-reliability-fault-tolerance">
+<span class="md-ellipsis">
+      1. Reliability &amp; Fault Tolerance
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-event-loop-architecture">
+<span class="md-ellipsis">
+      2. Event Loop Architecture
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-third-party-integration">
+<span class="md-ellipsis">
+      3. Third-Party Integration
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-driven-architecture">
+<span class="md-ellipsis">
+      📡 Event-Driven Architecture
+    </span>
+</a>
+<nav aria-label="📡 Event-Driven Architecture" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-publishing-processing">
+<span class="md-ellipsis">
+      Event Publishing &amp; Processing
+    </span>
+</a>
+<nav aria-label="Event Publishing &amp; Processing" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-categories">
+<span class="md-ellipsis">
+      Event Categories:
+    </span>
+</a>
+<nav aria-label="Event Categories:" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#business-events">
+<span class="md-ellipsis">
+      Business Events 📈
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#system-events">
+<span class="md-ellipsis">
+      System Events ⚙️
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-processing-pipeline">
+<span class="md-ellipsis">
+      Event Processing Pipeline
+    </span>
+</a>
+<nav aria-label="Event Processing Pipeline" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-storage-analytics">
+<span class="md-ellipsis">
+      Event Storage &amp; Analytics:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-observability">
+<span class="md-ellipsis">
+      🔍 Monitoring &amp; Observability
+    </span>
+</a>
+<nav aria-label="🔍 Monitoring &amp; Observability" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#comprehensive-logging-strategy">
+<span class="md-ellipsis">
+      Comprehensive Logging Strategy
+    </span>
+</a>
+<nav aria-label="Comprehensive Logging Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#production-debugging-philosophy">
+<span class="md-ellipsis">
+      Production Debugging Philosophy
+    </span>
+</a>
+<nav aria-label="Production Debugging Philosophy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#request-lifecycle-logging">
+<span class="md-ellipsis">
+      Request Lifecycle Logging
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#log-levels-categories">
+<span class="md-ellipsis">
+      Log Levels &amp; Categories
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#audit-trail-management">
+<span class="md-ellipsis">
+      Audit Trail Management
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pitfalls-risk-management">
+<span class="md-ellipsis">
+      ⚠️ Pitfalls &amp; Risk Management
+    </span>
+</a>
+<nav aria-label="⚠️ Pitfalls &amp; Risk Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-pitfalls-mitigation-strategies">
+<span class="md-ellipsis">
+      Common Pitfalls &amp; Mitigation Strategies
+    </span>
+</a>
+<nav aria-label="Common Pitfalls &amp; Mitigation Strategies" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-queue-management-issues">
+<span class="md-ellipsis">
+      1. Queue Management Issues 🚨
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-workflow-timeout-handling">
+<span class="md-ellipsis">
+      2. Workflow Timeout Handling ⏰
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-state-machine-inconsistencies">
+<span class="md-ellipsis">
+      3. State Machine Inconsistencies 🔄
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-authentication-token-issues">
+<span class="md-ellipsis">
+      4. Authentication Token Issues 🔐
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#5-multi-tenant-data-isolation">
+<span class="md-ellipsis">
+      5. Multi-Tenant Data Isolation 🏢
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-alerting-strategy">
+<span class="md-ellipsis">
+      📊 Monitoring &amp; Alerting Strategy
+    </span>
+</a>
+<nav aria-label="📊 Monitoring &amp; Alerting Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-metrics-to-monitor">
+<span class="md-ellipsis">
+      Key Metrics to Monitor
+    </span>
+</a>
+<nav aria-label="Key Metrics to Monitor" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-metrics">
+<span class="md-ellipsis">
+      Performance Metrics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#health-metrics">
+<span class="md-ellipsis">
+      Health Metrics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#business-metrics">
+<span class="md-ellipsis">
+      Business Metrics
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alert-configuration">
+<span class="md-ellipsis">
+      Alert Configuration
+    </span>
+</a>
+<nav aria-label="Alert Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#critical-alerts">
+<span class="md-ellipsis">
+      Critical Alerts 🚨
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#warning-alerts">
+<span class="md-ellipsis">
+      Warning Alerts ⚠️
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#next-steps-future-enhancements">
+<span class="md-ellipsis">
+      🎯 Next Steps &amp; Future Enhancements
+    </span>
+</a>
+<nav aria-label="🎯 Next Steps &amp; Future Enhancements" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#immediate-improvements">
+<span class="md-ellipsis">
+      Immediate Improvements
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#future-enhancements">
+<span class="md-ellipsis">
+      Future Enhancements
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="metis-platform-architecture-part-1-data-flow">Metis Platform Architecture - Part 1: Data Flow</h1>
+<blockquote>
+<p><strong>Part 1 of 3</strong>: This document focuses specifically on <strong>data flow patterns</strong> within the Metis platform. For complete architectural context, refer to the main architecture document and upcoming parts on storage and processing.</p>
+</blockquote>
+<h2 id="introduction">🌊 Introduction</h2>
+<p>Data flow being core to Metis platform, orchestrating how information moves through our multi-tenant SAAS architecture. This document provides a comprehensive overview of request handling, authentication, state management, and event-driven processing patterns that enable our platform to serve multiple clients efficiently and securely.</p>
+<p>Our data flow architecture is designed around <strong>two fundamental patterns</strong>:</p>
+<ul>
+<li><strong>Read Flows</strong>: Query and retrieval operations</li>
+<li><strong>Write Flows</strong>: State-changing operations with complex orchestration</li>
+</ul>
+<hr/>
+<h2 id="data-flow-architecture-overview">🏗️ Data Flow Architecture Overview</h2>
+<p>The below diagram shows how data flows in our multi-tenant architecture -</p>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                    METIS DATA FLOW ARCHITECTURE                 │
+├─────────────────────────────────────────────────────────────────┤
+│  🌐 ENTRY LAYER                                                │
+│  ├─ NGINX (Reverse Proxy)                                      │
+│  └─ Load Balancing &amp; SSL Termination                           │
+├─────────────────────────────────────────────────────────────────┤
+│  🏢 TENANT LAYER                                               │
+│  ├─ Client Container 1 ├─ Client Container 2 ├─ Client Container N │
+│  └─ Isolated tenant-specific processing                        │
+├─────────────────────────────────────────────────────────────────┤
+│  🔐 AUTHENTICATION LAYER                                        │
+│  ├─ SuperTokens Server                                          │
+│  └─ Token Management &amp; Validation                               │
+├─────────────────────────────────────────────────────────────────┤
+│  🔄 ORCHESTRATION LAYER                                         │
+│  ├─ State Machine Validation                                    │
+│  ├─ Temporal Workflows                                          │
+│  └─ Event-Driven Processing                                     │
+├─────────────────────────────────────────────────────────────────┤
+│  💾 SHARED INFRASTRUCTURE                                       │
+│  ├─ Multi-tenant Database                                       │
+│  ├─ Common ML Services                                          │
+│  └─ Message Queues &amp; Storage                                    │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr/>
+<h2 id="entry-point-request-routing">🚪 Entry Point &amp; Request Routing</h2>
+<h3 id="nginx-reverse-proxy"><strong>NGINX Reverse Proxy</strong></h3>
+<p>Our platform entry point handles all incoming requests through a centralized reverse proxy:</p>
+<h4 id="key-responsibilities">Key Responsibilities:</h4>
+<ul>
+<li><strong>SSL Termination</strong>: Secure HTTPS handling</li>
+<li><strong>Load Balancing</strong>: Distribute requests across tenant containers</li>
+<li><strong>Request Routing</strong>: Direct requests to appropriate client containers</li>
+<li><strong>Rate Limiting</strong>: Protect against abuse and ensure fair usage</li>
+<li><strong>Static Content</strong>: Serve static assets efficiently</li>
+</ul>
+<h4 id="routing-logic">Routing Logic:</h4>
+<pre><code>Incoming Request → NGINX → Client Container Selection → Authentication → Processing
+</code></pre>
+<h3 id="multi-tenant-container-architecture"><strong>Multi-Tenant Container Architecture</strong></h3>
+<ul>
+<li><strong>N Clients = N Containers</strong>: Each client gets dedicated container isolation</li>
+<li><strong>Shared Infrastructure</strong>: All containers access common multi-tenant components</li>
+<li><strong>Resource Isolation</strong>: Prevents client interference while sharing infrastructure costs</li>
+</ul>
+<hr/>
+<h2 id="authentication-authorization-flow">🔐 Authentication &amp; Authorization Flow</h2>
+<h3 id="token-based-security-model"><strong>Token-Based Security Model</strong></h3>
+<p>Our platform implements a comprehensive token-based authentication system using <strong>SuperTokens</strong>:</p>
+<div class="mermaid">sequenceDiagram
+    participant C as Client/UI
+    participant N as NGINX
+    participant CC as Client Container
+    participant ST as SuperTokens
+    participant DB as Database
+
+    Note over C,DB: Authentication Flow
+
+    C-&gt;&gt;+N: Request with credentials
+    N-&gt;&gt;+CC: Route to tenant container
+    CC-&gt;&gt;+ST: Validate credentials
+    ST-&gt;&gt;+DB: Check user credentials
+    DB-&gt;&gt;-ST: Return user data
+    ST-&gt;&gt;-CC: Generate JWT token
+    CC-&gt;&gt;-N: Return token
+    N-&gt;&gt;-C: Authentication successful
+
+    Note over C,DB: Subsequent API Calls
+
+    C-&gt;&gt;+N: API request with token
+    N-&gt;&gt;+CC: Route with token
+    CC-&gt;&gt;+ST: Validate token
+    ST-&gt;&gt;-CC: Token validation result
+    CC-&gt;&gt;-N: Process request or reject
+    N-&gt;&gt;-C: API response
+</div>
+<h3 id="token-generation-methods"><strong>Token Generation Methods</strong></h3>
+<h4 id="1-app-login">1. <strong>App Login</strong> 🔑</h4>
+<ul>
+<li><strong>User Authentication</strong>: Username/password login</li>
+<li><strong>Session Management</strong>: Persistent login sessions</li>
+<li><strong>Token Refresh</strong>: Automatic token renewal</li>
+</ul>
+<h4 id="2-agent-login">2. <strong>Agent Login</strong> 👥</h4>
+<ul>
+<li><strong>Agent Portal</strong>: Dedicated agent interface</li>
+<li><strong>Role-Based Access</strong>: Different permission levels</li>
+<li><strong>Audit Trail</strong>: Track agent actions</li>
+</ul>
+<h4 id="3-server-to-server-s2s">3. <strong>Server-to-Server (S2S)</strong> 🔗</h4>
+<ul>
+<li><strong>API Keys</strong>: Access key and secret pairs</li>
+<li><strong>Service Authentication</strong>: Backend service integration</li>
+<li><strong>Programmatic Access</strong>: Automated system interactions</li>
+</ul>
+<h3 id="security-validation-pipeline"><strong>Security Validation Pipeline</strong></h3>
+<p>Every API call follows this security validation sequence:
+1. <strong>Token Extraction</strong>: Extract token from request headers
+2. <strong>Token Validation</strong>: Verify token authenticity with SuperTokens
+3. <strong>Authorization Check</strong>: Validate user permissions for requested resource
+4. <strong>Request Processing</strong>: Proceed with business logic if authorized</p>
+<hr/>
+<h2 id="data-flow-patterns">📊 Data Flow Patterns</h2>
+<h3 id="read-flows"><strong>Read Flows</strong> 📖</h3>
+<p>Read flows handle query and retrieval operations with minimal complexity:</p>
+<div class="mermaid">flowchart TD
+    A[API Request] --&gt; B[Authentication]
+    B --&gt; C[Query Validation]
+    C --&gt; D[Database Query]
+    D --&gt; E[Result Processing]
+    E --&gt; F[Response]
+
+    style A fill:#e1f5fe
+    style F fill:#e8f5e8
+</div>
+<h4 id="characteristics">Characteristics:</h4>
+<ul>
+<li><strong>Stateless Operations</strong>: No system state changes</li>
+<li><strong>Database-Heavy</strong>: Primary processing in database layer</li>
+<li><strong>Fast Response</strong>: Optimized for quick data retrieval</li>
+<li><strong>Cacheable</strong>: Future caching implementation for high-frequency queries</li>
+</ul>
+<h4 id="examples">Examples:</h4>
+<ul>
+<li>Fetch list of banks</li>
+<li>Check user progress</li>
+<li>Retrieve transaction history</li>
+<li>Generate reports</li>
+</ul>
+<hr/>
+<h3 id="write-flows"><strong>Write Flows</strong> ✍️</h3>
+<p>Write flows handle complex state-changing operations with sophisticated orchestration:</p>
+<div class="mermaid">sequenceDiagram
+    participant C as Client
+    participant CC as Client Container
+    participant SM as State Machine
+    participant TW as Temporal Workflow
+    participant Q as Response Queue
+    participant ML as ML Services
+    participant DB as Database
+    participant S3 as S3 Storage
+
+    Note over C,S3: Write Flow Processing
+
+    C-&gt;&gt;+CC: Write API Request
+    CC-&gt;&gt;CC: Authentication &amp; Authorization
+    CC-&gt;&gt;CC: Schema Validation
+    CC-&gt;&gt;+SM: Validate Current State
+    SM-&gt;&gt;-CC: State Validation Result
+
+    alt Invalid State
+        CC-&gt;&gt;-C: State Error Response
+    else Valid State
+        CC-&gt;&gt;CC: Preprocessing (File Upload to S3)
+        CC-&gt;&gt;+TW: Trigger Workflow
+        TW-&gt;&gt;-CC: Workflow ID
+        CC-&gt;&gt;+Q: Listen for Response
+
+        Note over TW,S3: Async Workflow Processing
+        TW-&gt;&gt;+ML: ML Processing Request
+        ML-&gt;&gt;-TW: ML Results
+        TW-&gt;&gt;+DB: Store Results
+        DB-&gt;&gt;-TW: Confirmation
+        TW-&gt;&gt;+Q: Publish Result
+
+        Q-&gt;&gt;-CC: Workflow Response
+        CC-&gt;&gt;-C: Final API Response
+    end
+</div>
+<hr/>
+<h2 id="state-machine-management">🔄 State Machine Management</h2>
+<h3 id="finite-state-machine-implementation"><strong>Finite State Machine Implementation</strong></h3>
+<p>We use <strong>qmuntal/stateless</strong> library to implement configurable state machines for each tenant:</p>
+<h4 id="sample-state-configuration">Sample State Configuration:</h4>
+<pre><code class="language-json">{
+      "states": [
+        {
+        "state_name": "provide_personal_details",
+      "valid_next_states": ["provide_pan_details"],
+      "required_fields": ["name", "email", "phone"],
+      "validation_rules": ["email_format", "phone_format"]
+        },
+        {
+        "state_name": "provide_pan_details",
+      "valid_next_states": ["provide_aadhar_details"],
+      "required_fields": ["pan_number", "pan_image"],
+      "validation_rules": ["pan_format", "image_size"]
+        },
+        {
+        "state_name": "provide_aadhar_details",
+      "valid_next_states": ["document_verification", "completed"],
+      "required_fields": ["aadhar_number", "aadhar_image"],
+      "validation_rules": ["aadhar_format", "image_quality"]
+    },
+    {
+      "state_name": "document_verification",
+      "valid_next_states": ["completed", "provide_additional_docs"],
+      "automated": true,
+      "timeout": "5m"
+    },
+    {
+      "state_name": "completed",
+      "valid_next_states": [],
+      "final_state": true
+        }
+      ]
+      }
+      ```
+
+#### State Machine Benefits:
+- **Validation**: Both UI and backend validate state transitions
+- **Consistency**: Ensures proper workflow progression
+- **Flexibility**: Configurable per tenant requirements
+- **Debugging**: Clear state tracking for troubleshooting
+
+---
+
+## ⚡ Workflow Orchestration with Temporal
+
+### **Asynchronous Processing Architecture**
+
+Our platform leverages **Temporal** for complex business process orchestration:
+
+#### Workflow Execution Pattern:
+```mermaid
+flowchart TD
+    A[API Request] --&gt; B[Workflow Trigger]
+    B --&gt; C[Workflow Execution]
+    C --&gt; D[Response Queue]
+    D --&gt; E[Queue Listener]
+    E --&gt; F[Response Matching]
+    F --&gt; G{Workflow ID Match?}
+    G --&gt;|No| H[NACK &amp; Requeue]
+    G --&gt;|Yes| I[Process Response]
+    I --&gt; J[API Response]
+    H --&gt; E
+
+    style A fill:#e1f5fe
+    style J fill:#e8f5e8
+    style H fill:#ffebee
+</code></pre>
+<h4 id="key-features">Key Features:</h4>
+<h5 id="1-reliability-fault-tolerance"><strong>1. Reliability &amp; Fault Tolerance</strong></h5>
+<ul>
+<li><strong>Automatic Retries</strong>: Built-in retry mechanisms</li>
+<li><strong>State Persistence</strong>: Workflow state survives failures</li>
+<li><strong>Resumption</strong>: Continue from last successful step</li>
+</ul>
+<h5 id="2-event-loop-architecture"><strong>2. Event Loop Architecture</strong></h5>
+<ul>
+<li><strong>Async Processing</strong>: Non-blocking workflow execution</li>
+<li><strong>Queue-Based Communication</strong>: Decoupled request/response</li>
+<li><strong>Timeout Management</strong>: 5-minute TTL with DLQ fallback</li>
+</ul>
+<h5 id="3-third-party-integration"><strong>3. Third-Party Integration</strong></h5>
+<ul>
+<li><strong>Waterfall Pattern</strong>: Sequential API calls with fallbacks</li>
+<li><strong>Retry Logic</strong>: Configurable retry strategies</li>
+<li><strong>Circuit Breaker</strong>: Prevent cascade failures</li>
+</ul>
+<hr/>
+<h2 id="event-driven-architecture">📡 Event-Driven Architecture</h2>
+<h3 id="event-publishing-processing"><strong>Event Publishing &amp; Processing</strong></h3>
+<p>Our platform implements comprehensive event-driven patterns for monitoring, analytics, and system integration:</p>
+<h4 id="event-categories">Event Categories:</h4>
+<h5 id="business-events"><strong>Business Events</strong> 📈</h5>
+<ul>
+<li><code>PAN_SUBMITTED</code>: User submits PAN details</li>
+<li><code>PAN_OCR_PROCESSED</code>: OCR processing completed</li>
+<li><code>PAN_VERIFICATION_FAILED</code>: Verification failed</li>
+<li><code>LOAN_APPROVED</code>: Loan approval decision</li>
+<li><code>DOCUMENT_UPLOADED</code>: Document upload event</li>
+</ul>
+<h5 id="system-events"><strong>System Events</strong> ⚙️</h5>
+<ul>
+<li><code>PROVIDER_A_UNHEALTHY</code>: External service health</li>
+<li><code>WORKFLOW_TIMEOUT</code>: Process timeout events</li>
+<li><code>AUTHENTICATION_FAILED</code>: Security events</li>
+<li><code>RATE_LIMIT_EXCEEDED</code>: Usage monitoring</li>
+</ul>
+<h3 id="event-processing-pipeline"><strong>Event Processing Pipeline</strong></h3>
+<div class="mermaid">flowchart LR
+    A[Event Generation] --&gt; B[Event Queue]
+    B --&gt; C[Event Consumer]
+    C --&gt; D[Event Storage]
+    D --&gt; E[Analytics Engine]
+    E --&gt; F[Dashboards &amp; Alerts]
+
+    C --&gt; G[Communication Service]
+    C --&gt; H[Alert System]
+
+    style A fill:#e1f5fe
+    style F fill:#e8f5e8
+    style G fill:#fff3e0
+    style H fill:#ffebee
+</div>
+<h4 id="event-storage-analytics">Event Storage &amp; Analytics:</h4>
+<ul>
+<li><strong>Parquet Format</strong>: Efficient columnar storage</li>
+<li><strong>S3 Integration</strong>: Scalable event data lake</li>
+<li><strong>Columnar Queries</strong>: Fast aggregate analytics</li>
+<li><strong>Real-time Alerts</strong>: Immediate notification system</li>
+</ul>
+<hr/>
+<h2 id="monitoring-observability">🔍 Monitoring &amp; Observability</h2>
+<h3 id="comprehensive-logging-strategy"><strong>Comprehensive Logging Strategy</strong></h3>
+<h4 id="production-debugging-philosophy"><strong>Production Debugging Philosophy</strong></h4>
+<blockquote>
+<p>"Debugging in production is done purely by log checking"</p>
+</blockquote>
+<p>Our logging strategy ensures complete observability:</p>
+<h5 id="request-lifecycle-logging"><strong>Request Lifecycle Logging</strong></h5>
+<ul>
+<li><strong>Entry Point</strong>: Request received at NGINX</li>
+<li><strong>Authentication</strong>: Token validation results</li>
+<li><strong>State Validation</strong>: State machine decisions</li>
+<li><strong>Workflow Execution</strong>: Temporal workflow progress</li>
+<li><strong>External Calls</strong>: Third-party API interactions</li>
+<li><strong>Response Generation</strong>: Final response preparation</li>
+</ul>
+<h5 id="log-levels-categories"><strong>Log Levels &amp; Categories</strong></h5>
+<pre><code>DEBUG: Detailed execution flow
+INFO:  Business process milestones
+WARN:  Recoverable issues
+ERROR: System failures requiring attention
+FATAL: Critical system failures
+</code></pre>
+<h3 id="audit-trail-management"><strong>Audit Trail Management</strong></h3>
+<ul>
+<li><strong>Access Logs</strong>: All API access patterns</li>
+<li><strong>User Actions</strong>: Complete user journey tracking</li>
+<li><strong>Agent Activities</strong>: Administrative action logging</li>
+<li><strong>System Changes</strong>: Configuration and deployment logs</li>
+</ul>
+<hr/>
+<h2 id="pitfalls-risk-management">⚠️ Pitfalls &amp; Risk Management</h2>
+<h3 id="common-pitfalls-mitigation-strategies"><strong>Common Pitfalls &amp; Mitigation Strategies</strong></h3>
+<h4 id="1-queue-management-issues"><strong>1. Queue Management Issues</strong> 🚨</h4>
+<p><strong>Pitfall</strong>: Message queue overflow during high traffic
+<strong>Mitigation</strong>:
+- <strong>Dead Letter Queue (DLQ)</strong>: 5-minute TTL with offline analysis
+- <strong>Queue Monitoring</strong>: Real-time queue depth tracking
+- <strong>Auto-scaling</strong>: Dynamic worker scaling based on queue size
+- <strong>Circuit Breakers</strong>: Prevent cascade failures</p>
+<h4 id="2-workflow-timeout-handling"><strong>2. Workflow Timeout Handling</strong> ⏰</h4>
+<p><strong>Pitfall</strong>: Long-running workflows causing resource exhaustion
+<strong>Mitigation</strong>:
+- <strong>Timeout Configuration</strong>: Per-workflow timeout settings
+- <strong>Progress Checkpoints</strong>: Regular state persistence
+- <strong>Resource Limits</strong>: Memory and CPU constraints
+- <strong>Graceful Degradation</strong>: Fallback processing paths</p>
+<h4 id="3-state-machine-inconsistencies"><strong>3. State Machine Inconsistencies</strong> 🔄</h4>
+<p><strong>Pitfall</strong>: State drift between UI and backend
+<strong>Mitigation</strong>:
+- <strong>Single Source of Truth</strong>: Centralized state configuration
+- <strong>Validation Sync</strong>: Shared validation libraries
+- <strong>State Auditing</strong>: Complete state transition logging
+- <strong>Recovery Procedures</strong>: State correction mechanisms</p>
+<h4 id="4-authentication-token-issues"><strong>4. Authentication Token Issues</strong> 🔐</h4>
+<p><strong>Pitfall</strong>: Token expiration and refresh failures
+<strong>Mitigation</strong>:
+- <strong>Graceful Token Refresh</strong>: Automatic background renewal
+- <strong>Token Validation Caching</strong>: Reduce SuperTokens load
+- <strong>Fallback Authentication</strong>: Multiple auth methods
+- <strong>Session Management</strong>: Proper session lifecycle handling</p>
+<h4 id="5-multi-tenant-data-isolation"><strong>5. Multi-Tenant Data Isolation</strong> 🏢</h4>
+<p><strong>Pitfall</strong>: Cross-tenant data leakage
+<strong>Mitigation</strong>:
+- <strong>Container Isolation</strong>: Dedicated tenant containers
+- <strong>Database Row-Level Security</strong>: Tenant-aware queries
+- <strong>Access Control</strong>: Strict authorization checks
+- <strong>Data Encryption</strong>: Tenant-specific encryption keys</p>
+<hr/>
+<h2 id="monitoring-alerting-strategy">📊 Monitoring &amp; Alerting Strategy</h2>
+<h3 id="key-metrics-to-monitor"><strong>Key Metrics to Monitor</strong></h3>
+<h4 id="performance-metrics"><strong>Performance Metrics</strong></h4>
+<ul>
+<li><strong>Response Times</strong>: API endpoint latency</li>
+<li><strong>Throughput</strong>: Requests per second</li>
+<li><strong>Queue Depth</strong>: Message queue backlogs</li>
+<li><strong>Workflow Duration</strong>: Process completion times</li>
+</ul>
+<h4 id="health-metrics"><strong>Health Metrics</strong></h4>
+<ul>
+<li><strong>Container Health</strong>: CPU, memory, disk usage</li>
+<li><strong>Database Performance</strong>: Query execution times</li>
+<li><strong>External Service Health</strong>: Third-party API status</li>
+<li><strong>Authentication Success Rate</strong>: Login failure patterns</li>
+</ul>
+<h4 id="business-metrics"><strong>Business Metrics</strong></h4>
+<ul>
+<li><strong>User Journey Completion</strong>: Funnel analysis</li>
+<li><strong>Error Rates</strong>: Business process failures</li>
+<li><strong>Feature Usage</strong>: Plugin utilization patterns</li>
+<li><strong>Client Activity</strong>: Tenant-specific metrics</li>
+</ul>
+<h3 id="alert-configuration"><strong>Alert Configuration</strong></h3>
+<h4 id="critical-alerts"><strong>Critical Alerts</strong> 🚨</h4>
+<ul>
+<li>Authentication service down</li>
+<li>Database connection failures</li>
+<li>Workflow timeout exceeded</li>
+<li>Queue overflow conditions</li>
+</ul>
+<h4 id="warning-alerts"><strong>Warning Alerts</strong> ⚠️</h4>
+<ul>
+<li>High response times</li>
+<li>Increased error rates</li>
+<li>Resource utilization spikes</li>
+<li>External service degradation</li>
+</ul>
+<hr/>
+<h2 id="next-steps-future-enhancements">🎯 Next Steps &amp; Future Enhancements</h2>
+<h3 id="immediate-improvements"><strong>Immediate Improvements</strong></h3>
+<ol>
+<li><strong>Metrics Dashboard</strong>: Real-time operational visibility</li>
+</ol>
+<h3 id="future-enhancements"><strong>Future Enhancements</strong></h3>
+<ol>
+<li><strong>Caching Layer</strong>: Implement Redis for read-heavy operations</li>
+<li><strong>Rate Limiting</strong>: Advanced rate limiting per tenant</li>
+<li><strong>GraphQL Integration</strong>: Flexible query capabilities</li>
+<li><strong>Event Sourcing</strong>: Complete event-driven architecture</li>
+<li><strong>Multi-Region Deployment</strong>: Geographic distribution</li>
+<li><strong>Advanced Analytics</strong>: ML-powered operational insights</li>
+<li><strong>Automated Scaling</strong>: Container auto-scaling based on load</li>
+</ol>
+<hr/>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Introduction to Metis" class="md-footer__link md-footer__link--prev" href="../architecture-overview/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Previous
+              </span>
+<div class="md-ellipsis">
+                Introduction to Metis
+              </div>
+</div>
+</a>
+<a aria-label="Next: Architecture - Data storage" class="md-footer__link md-footer__link--next" href="../architecture-part-2/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Next
+              </span>
+<div class="md-ellipsis">
+                Architecture - Data storage
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.6.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

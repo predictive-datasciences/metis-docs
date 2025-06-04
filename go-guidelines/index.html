@@ -1,0 +1,2485 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../python-guidelines/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Go - Metis Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#go-coding-guidelines" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Metis Docs" class="md-header__button md-logo" aria-label="Metis Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Metis Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Go
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Metis Docs" class="md-nav__button md-logo" aria-label="Metis Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Metis Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tech
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tech
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Metis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Coding guidelines
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Coding guidelines
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Go
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Go
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      📁 Code Organization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📁 Code Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-element-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Element Order
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏷️ Naming Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏷️ Naming Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specific Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Specific Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Type Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Function Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Function Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#size-and-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Size and Complexity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return Values
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Error Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-wrapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Wrapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Package Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 Package Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Principles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Concurrency
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Concurrency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goroutines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goroutines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Channels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      String Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anti-patterns-to-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚫 Anti-Patterns to Avoid
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚫 Anti-Patterns to Avoid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panic Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Code Review Checklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Code Review Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functionality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Quality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools-linting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tools &amp; Linting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Tools &amp; Linting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-commit-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-commit Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ide-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDE Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Metrics &amp; Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Metrics &amp; Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repo-structure.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Repo-structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-handling.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracing.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tracing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      📁 Code Organization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📁 Code Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-element-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Element Order
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏷️ Naming Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏷️ Naming Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specific Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Specific Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constants
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interfaces
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#function-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function Documentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#type-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Type Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Function Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Function Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#size-and-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Size and Complexity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#return-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Return Values
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      ❌ Error Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="❌ Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-wrapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Wrapping
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Package Design
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 Package Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Principles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#package-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Package Structure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Concurrency
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Concurrency">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goroutines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Goroutines
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Channels
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Performance Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Performance Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      String Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anti-patterns-to-avoid" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚫 Anti-Patterns to Avoid
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚫 Anti-Patterns to Avoid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Global Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#panic-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Panic Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Code Review Checklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Code Review Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functionality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-quality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Quality
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools-linting" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tools &amp; Linting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Tools &amp; Linting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Tools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-commit-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-commit Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ide-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDE Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Metrics &amp; Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Metrics &amp; Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="go-coding-guidelines">Go Coding Guidelines</h1>
+<blockquote>
+<p>Comprehensive Go coding standards for the Metis platform, ensuring consistency, maintainability, and performance across the codebase.</p>
+</blockquote>
+<h2 id="overview">📋 Overview</h2>
+<p>These guidelines reflect Go's best practices and are designed to prevent common anti-patterns while maintaining code quality across our multi-tenant SAAS platform.</p>
+<p><strong>Key Principles:</strong>
+- <strong>Simplicity</strong>: Write clear, readable code
+- <strong>Consistency</strong>: Follow established patterns
+- <strong>Performance</strong>: Optimize for efficiency
+- <strong>Maintainability</strong>: Code should be easy to modify</p>
+<hr />
+<h2 id="code-organization">📁 Code Organization</h2>
+<h3 id="file-structure"><strong>File Structure</strong></h3>
+<ul>
+<li><strong>Maximum file length</strong>: 500 lines (excluding comments)</li>
+<li><strong>Single purpose</strong>: Each file should have one well-defined responsibility</li>
+<li><strong>Related functionality</strong>: Group related code together</li>
+</ul>
+<h3 id="file-element-order"><strong>File Element Order</strong></h3>
+<pre><code class="language-go">// 1. Package declaration
+package main
+
+// 2. Imports (grouped and ordered)
+import (
+    // Standard library
+    &quot;context&quot;
+    &quot;fmt&quot;
+    &quot;time&quot;
+
+    // Third-party packages
+    &quot;github.com/gin-gonic/gin&quot;
+    &quot;github.com/temporal-io/sdk-go/workflow&quot;
+
+    // Internal packages
+    &quot;github.com/metis/pkg/auth&quot;
+    &quot;github.com/metis/pkg/database&quot;
+)
+
+// 3. Constants
+const (
+    MaxRetryCount = 3
+    DefaultTimeout = 30 * time.Second
+)
+
+// 4. Variables
+var (
+    ErrNotFound = errors.New(&quot;resource not found&quot;)
+    ErrInvalidInput = errors.New(&quot;invalid input&quot;)
+)
+
+// 5. Types
+type User struct {
+    ID    string
+    Email string
+}
+
+// 6. Functions and Methods
+func NewUser(email string) *User {
+    return &amp;User{
+        ID:    generateID(),
+        Email: email,
+    }
+}
+</code></pre>
+<hr />
+<h2 id="naming-conventions">🏷️ Naming Conventions</h2>
+<h3 id="general-rules"><strong>General Rules</strong></h3>
+<ul>
+<li><strong>Short, concise names</strong> in small scopes</li>
+<li><strong>Descriptive names</strong> in larger scopes</li>
+<li><strong>No underscores</strong> in package names</li>
+<li><strong>CamelCase</strong> for variables and functions</li>
+<li><strong>PascalCase</strong> for exported names</li>
+</ul>
+<h3 id="specific-conventions"><strong>Specific Conventions</strong></h3>
+<h4 id="packages">Packages</h4>
+<pre><code class="language-go">// Good
+package api
+package config
+package database
+
+// Bad
+package api_handlers
+package db_utils
+</code></pre>
+<h4 id="functions">Functions</h4>
+<pre><code class="language-go">// Good - Use verbs
+func GetUser(ctx context.Context, id string) (*User, error)
+func CreateOrder(order *Order) error
+func ValidateInput(data map[string]interface{}) error
+
+// Bad
+func User(id string) (*User, error)
+func Order(order *Order) error
+</code></pre>
+<h4 id="variables">Variables</h4>
+<pre><code class="language-go">// Good - Use nouns
+var user *User
+var orderList []Order
+var dbConnection *sql.DB
+
+// Bad
+var getUserResult *User
+var createOrderFunc func()
+</code></pre>
+<h4 id="constants">Constants</h4>
+<pre><code class="language-go">// Good
+const (
+    MaxRetryCount     = 3
+    DefaultTimeout    = 30 * time.Second
+    DatabaseURL       = &quot;postgres://localhost:5432/metis&quot;
+)
+</code></pre>
+<h4 id="error-variables">Error Variables</h4>
+<pre><code class="language-go">// Good - Prefix with Err
+var (
+    ErrNotFound      = errors.New(&quot;resource not found&quot;)
+    ErrUnauthorized  = errors.New(&quot;unauthorized access&quot;)
+    ErrInvalidInput  = errors.New(&quot;invalid input provided&quot;)
+)
+</code></pre>
+<h4 id="interfaces">Interfaces</h4>
+<pre><code class="language-go">// Good - Add 'er' suffix when appropriate
+type Reader interface {
+    Read([]byte) (int, error)
+}
+
+type UserRepository interface {
+    GetUser(ctx context.Context, id string) (*User, error)
+    CreateUser(ctx context.Context, user *User) error
+}
+</code></pre>
+<hr />
+<h2 id="documentation">📝 Documentation</h2>
+<h3 id="package-documentation"><strong>Package Documentation</strong></h3>
+<pre><code class="language-go">// Package auth provides authentication and authorization functionality
+// for the Metis platform. It includes JWT token management, session
+// handling, and multi-tenant security features.
+package auth
+</code></pre>
+<h3 id="function-documentation"><strong>Function Documentation</strong></h3>
+<pre><code class="language-go">// GetUser retrieves a user by ID from the database.
+// Returns ErrNotFound if the user doesn't exist.
+// The context should include tenant information for proper isolation.
+func GetUser(ctx context.Context, id string) (*User, error) {
+    // Implementation
+}
+</code></pre>
+<h3 id="type-documentation"><strong>Type Documentation</strong></h3>
+<pre><code class="language-go">// User represents a system user with authentication details.
+// It includes fields for identification, tenant association,
+// and access control within the multi-tenant architecture.
+type User struct {
+    ID       string    `json:&quot;id&quot; db:&quot;id&quot;`
+    TenantID string    `json:&quot;tenant_id&quot; db:&quot;tenant_id&quot;`
+    Email    string    `json:&quot;email&quot; db:&quot;email&quot;`
+    Name     string    `json:&quot;name&quot; db:&quot;name&quot;`
+    Created  time.Time `json:&quot;created_at&quot; db:&quot;created_at&quot;`
+}
+</code></pre>
+<hr />
+<h2 id="function-design">🔧 Function Design</h2>
+<h3 id="size-and-complexity"><strong>Size and Complexity</strong></h3>
+<ul>
+<li><strong>Maximum length</strong>: 50 lines</li>
+<li><strong>Maximum nesting</strong>: 3 levels of control structures</li>
+<li><strong>Single responsibility</strong>: Functions should do one thing well</li>
+</ul>
+<h3 id="parameters"><strong>Parameters</strong></h3>
+<pre><code class="language-go">// Good - Maximum 5 parameters
+func ProcessLoan(ctx context.Context, userID, loanID string, amount float64, urgent bool) error
+
+// Better - Use structs for more parameters
+type LoanRequest struct {
+    UserID   string
+    LoanID   string
+    Amount   float64
+    Urgent   bool
+    Metadata map[string]interface{}
+}
+
+func ProcessLoan(ctx context.Context, request LoanRequest) error
+</code></pre>
+<h3 id="return-values"><strong>Return Values</strong></h3>
+<pre><code class="language-go">// Good - Return errors as last value
+func GetUser(ctx context.Context, id string) (*User, error)
+
+// Good - Use named returns for documentation
+func CalculateInterest(principal, rate float64, years int) (interest, total float64, err error) {
+    if principal &lt;= 0 || rate &lt;= 0 || years &lt;= 0 {
+        err = ErrInvalidInput
+        return
+    }
+
+    interest = principal * rate * float64(years) / 100
+    total = principal + interest
+    return
+}
+</code></pre>
+<hr />
+<h2 id="error-handling">❌ Error Handling</h2>
+<h3 id="error-types"><strong>Error Types</strong></h3>
+<pre><code class="language-go">// Custom error types for domain-specific errors
+type ValidationError struct {
+    Field   string
+    Message string
+}
+
+func (e ValidationError) Error() string {
+    return fmt.Sprintf(&quot;validation failed for field %s: %s&quot;, e.Field, e.Message)
+}
+
+// Sentinel errors for common cases
+var (
+    ErrUserNotFound    = errors.New(&quot;user not found&quot;)
+    ErrInvalidTenant   = errors.New(&quot;invalid tenant&quot;)
+    ErrDuplicateEmail  = errors.New(&quot;email already exists&quot;)
+)
+</code></pre>
+<h3 id="error-wrapping"><strong>Error Wrapping</strong></h3>
+<pre><code class="language-go">func ProcessOrder(ctx context.Context, order *Order) error {
+    if err := validateOrder(order); err != nil {
+        return fmt.Errorf(&quot;invalid order: %w&quot;, err)
+    }
+
+    if err := saveOrder(ctx, order); err != nil {
+        return fmt.Errorf(&quot;failed to save order %s: %w&quot;, order.ID, err)
+    }
+
+    return nil
+}
+</code></pre>
+<h3 id="error-handling-patterns"><strong>Error Handling Patterns</strong></h3>
+<pre><code class="language-go">// Good - Handle errors immediately
+func GetUserProfile(ctx context.Context, userID string) (*UserProfile, error) {
+    user, err := userRepo.GetUser(ctx, userID)
+    if err != nil {
+        return nil, fmt.Errorf(&quot;failed to get user: %w&quot;, err)
+    }
+
+    profile, err := profileRepo.GetProfile(ctx, userID)
+    if err != nil {
+        return nil, fmt.Errorf(&quot;failed to get profile: %w&quot;, err)
+    }
+
+    return &amp;UserProfile{User: user, Profile: profile}, nil
+}
+</code></pre>
+<hr />
+<h2 id="testing">🧪 Testing</h2>
+<h3 id="test-structure"><strong>Test Structure</strong></h3>
+<pre><code class="language-go">func TestGetUser(t *testing.T) {
+    tests := []struct {
+        name    string
+        userID  string
+        want    *User
+        wantErr error
+    }{
+        {
+            name:    &quot;valid user&quot;,
+            userID:  &quot;user-123&quot;,
+            want:    &amp;User{ID: &quot;user-123&quot;, Email: &quot;test@example.com&quot;},
+            wantErr: nil,
+        },
+        {
+            name:    &quot;user not found&quot;,
+            userID:  &quot;nonexistent&quot;,
+            want:    nil,
+            wantErr: ErrUserNotFound,
+        },
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            got, err := GetUser(context.Background(), tt.userID)
+
+            if !errors.Is(err, tt.wantErr) {
+                t.Errorf(&quot;GetUser() error = %v, wantErr %v&quot;, err, tt.wantErr)
+                return
+            }
+
+            if !reflect.DeepEqual(got, tt.want) {
+                t.Errorf(&quot;GetUser() = %v, want %v&quot;, got, tt.want)
+            }
+        })
+    }
+}
+</code></pre>
+<h3 id="test-requirements"><strong>Test Requirements</strong></h3>
+<ul>
+<li><strong>Minimum coverage</strong>: 80%</li>
+<li><strong>Test independence</strong>: Tests should not depend on each other</li>
+<li><strong>Both paths</strong>: Test success and failure scenarios</li>
+<li><strong>Descriptive names</strong>: Test names should describe the scenario</li>
+</ul>
+<hr />
+<h2 id="package-design">📦 Package Design</h2>
+<h3 id="package-principles"><strong>Package Principles</strong></h3>
+<ul>
+<li><strong>Single responsibility</strong>: Each package should have one clear purpose</li>
+<li><strong>Minimal dependencies</strong>: Reduce coupling between packages</li>
+<li><strong>Internal packages</strong>: Use <code>internal/</code> for implementation details</li>
+</ul>
+<h3 id="package-structure"><strong>Package Structure</strong></h3>
+<pre><code>pkg/
+├── auth/           # Authentication and authorization
+├── database/       # Database operations and models
+├── config/         # Configuration management
+├── logging/        # Structured logging
+├── workflows/      # Temporal workflow definitions
+└── internal/       # Internal implementation details
+    ├── models/     # Internal data models
+    └── utils/      # Internal utilities
+</code></pre>
+<hr />
+<h2 id="concurrency">🔄 Concurrency</h2>
+<h3 id="goroutines"><strong>Goroutines</strong></h3>
+<pre><code class="language-go">// Good - Proper goroutine lifecycle management
+func ProcessBatch(ctx context.Context, items []Item) error {
+    errChan := make(chan error, len(items))
+
+    for _, item := range items {
+        go func(i Item) {
+            defer func() {
+                if r := recover(); r != nil {
+                    errChan &lt;- fmt.Errorf(&quot;panic processing item %s: %v&quot;, i.ID, r)
+                }
+            }()
+
+            errChan &lt;- processItem(ctx, i)
+        }(item)
+    }
+
+    for range items {
+        if err := &lt;-errChan; err != nil {
+            return fmt.Errorf(&quot;batch processing failed: %w&quot;, err)
+        }
+    }
+
+    return nil
+}
+</code></pre>
+<h3 id="channels"><strong>Channels</strong></h3>
+<pre><code class="language-go">// Good - Proper channel usage
+func WorkerPool(ctx context.Context, jobs &lt;-chan Job, results chan&lt;- Result) {
+    defer close(results)
+
+    for {
+        select {
+        case job, ok := &lt;-jobs:
+            if !ok {
+                return // Channel closed
+            }
+
+            result := processJob(job)
+
+            select {
+            case results &lt;- result:
+            case &lt;-ctx.Done():
+                return
+            }
+
+        case &lt;-ctx.Done():
+            return
+        }
+    }
+}
+</code></pre>
+<hr />
+<h2 id="performance-considerations">⚡ Performance Considerations</h2>
+<h3 id="memory-management"><strong>Memory Management</strong></h3>
+<pre><code class="language-go">// Good - Pre-allocate slices when size is known
+func ProcessUsers(users []User) []ProcessedUser {
+    processed := make([]ProcessedUser, 0, len(users))
+
+    for _, user := range users {
+        processed = append(processed, processUser(user))
+    }
+
+    return processed
+}
+
+// Good - Use sync.Pool for frequently allocated objects
+var bufferPool = sync.Pool{
+    New: func() interface{} {
+        return make([]byte, 0, 1024)
+    },
+}
+
+func ProcessData(data []byte) ([]byte, error) {
+    buf := bufferPool.Get().([]byte)
+    defer bufferPool.Put(buf[:0])
+
+    // Process data using buf
+    return processWithBuffer(data, buf)
+}
+</code></pre>
+<h3 id="string-operations"><strong>String Operations</strong></h3>
+<pre><code class="language-go">// Good - Use strings.Builder for concatenation
+func BuildQuery(fields []string, table string) string {
+    var builder strings.Builder
+    builder.WriteString(&quot;SELECT &quot;)
+
+    for i, field := range fields {
+        if i &gt; 0 {
+            builder.WriteString(&quot;, &quot;)
+        }
+        builder.WriteString(field)
+    }
+
+    builder.WriteString(&quot; FROM &quot;)
+    builder.WriteString(table)
+
+    return builder.String()
+}
+</code></pre>
+<hr />
+<h2 id="anti-patterns-to-avoid">🚫 Anti-Patterns to Avoid</h2>
+<h3 id="global-variables"><strong>Global Variables</strong></h3>
+<pre><code class="language-go">// Bad
+var db *sql.DB
+
+func init() {
+    db = connectToDatabase()
+}
+
+// Good - Use dependency injection
+type UserService struct {
+    db *sql.DB
+}
+
+func NewUserService(db *sql.DB) *UserService {
+    return &amp;UserService{db: db}
+}
+</code></pre>
+<h3 id="panic-usage"><strong>Panic Usage</strong></h3>
+<pre><code class="language-go">// Bad - Don't use panic for normal error handling
+func GetUser(id string) *User {
+    user, err := userRepo.Get(id)
+    if err != nil {
+        panic(err) // Bad!
+    }
+    return user
+}
+
+// Good - Return errors
+func GetUser(ctx context.Context, id string) (*User, error) {
+    user, err := userRepo.Get(ctx, id)
+    if err != nil {
+        return nil, fmt.Errorf(&quot;failed to get user: %w&quot;, err)
+    }
+    return user, nil
+}
+</code></pre>
+<hr />
+<h2 id="code-review-checklist">🔍 Code Review Checklist</h2>
+<h3 id="functionality"><strong>Functionality</strong></h3>
+<ul>
+<li>[ ] Code works as expected</li>
+<li>[ ] Edge cases are handled</li>
+<li>[ ] Error handling is appropriate</li>
+<li>[ ] Tests cover the functionality</li>
+</ul>
+<h3 id="code-quality"><strong>Code Quality</strong></h3>
+<ul>
+<li>[ ] Follows naming conventions</li>
+<li>[ ] Functions are appropriately sized</li>
+<li>[ ] Code is well-documented</li>
+<li>[ ] No code duplication</li>
+</ul>
+<h3 id="performance"><strong>Performance</strong></h3>
+<ul>
+<li>[ ] No obvious performance issues</li>
+<li>[ ] Appropriate data structures used</li>
+<li>[ ] Memory usage is reasonable</li>
+<li>[ ] Concurrency is handled correctly</li>
+</ul>
+<h3 id="security"><strong>Security</strong></h3>
+<ul>
+<li>[ ] Input validation is present</li>
+<li>[ ] No sensitive data in logs</li>
+<li>[ ] Proper error messages (no information leakage)</li>
+<li>[ ] Authentication/authorization checks</li>
+</ul>
+<hr />
+<h2 id="tools-linting">🛠️ Tools &amp; Linting</h2>
+<h3 id="required-tools"><strong>Required Tools</strong></h3>
+<ul>
+<li><strong>golangci-lint</strong>: Comprehensive linting</li>
+<li><strong>go fmt</strong>: Code formatting</li>
+<li><strong>go vet</strong>: Static analysis</li>
+<li><strong>staticcheck</strong>: Advanced static analysis</li>
+</ul>
+<h3 id="pre-commit-setup"><strong>Pre-commit Setup</strong></h3>
+<pre><code class="language-bash"># Install pre-commit hooks
+make pre-commit-install
+
+# Run linting
+make lint
+
+# Run tests
+make test
+</code></pre>
+<h3 id="ide-configuration"><strong>IDE Configuration</strong></h3>
+<p>Configure your IDE to:
+- Run <code>go fmt</code> on save
+- Show linting errors inline
+- Run tests automatically
+- Import organization</p>
+<hr />
+<h2 id="metrics-monitoring">📊 Metrics &amp; Monitoring</h2>
+<h3 id="code-metrics"><strong>Code Metrics</strong></h3>
+<pre><code class="language-go">// Good - Add metrics to important functions
+func ProcessLoanApplication(ctx context.Context, app *LoanApplication) error {
+    start := time.Now()
+    defer func() {
+        processingDuration.WithLabelValues(&quot;loan_application&quot;).Observe(time.Since(start).Seconds())
+    }()
+
+    // Processing logic
+    return nil
+}
+</code></pre>
+<h3 id="logging"><strong>Logging</strong></h3>
+<pre><code class="language-go">// Good - Structured logging
+func ProcessUser(ctx context.Context, userID string) error {
+    logger := logging.FromContext(ctx).With(
+        &quot;user_id&quot;, userID,
+        &quot;operation&quot;, &quot;process_user&quot;,
+    )
+
+    logger.Info(&quot;starting user processing&quot;)
+
+    if err := validateUser(ctx, userID); err != nil {
+        logger.Error(&quot;user validation failed&quot;, &quot;error&quot;, err)
+        return fmt.Errorf(&quot;validation failed: %w&quot;, err)
+    }
+
+    logger.Info(&quot;user processing completed successfully&quot;)
+    return nil
+}
+</code></pre>
+<hr />
+<p><em>These guidelines ensure consistent, maintainable, and performant Go code across the Metis platform. Regular review and updates keep them aligned with evolving best practices.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../python-guidelines/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Python">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Python
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2082 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Deployment Guide - Metis Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deployment-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Metis Docs" class="md-header__button md-logo" aria-label="Metis Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Metis Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deployment Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Metis Docs" class="md-nav__button md-logo" aria-label="Metis Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Metis Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tech
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tech
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Metis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Coding guidelines
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Coding guidelines
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Go
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repo-structure.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Repo-structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-handling.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracing.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tracing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infrastructure-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ Infrastructure Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Infrastructure Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deployment-topology" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Topology
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-development-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐳 Local Development Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐳 Local Development Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Compose Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#makefile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Makefile
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      ☸️ Kubernetes Deployment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="☸️ Kubernetes Deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cluster Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#eks-cluster-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      EKS Cluster Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create Cluster
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configmaps-and-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      ConfigMaps and Secrets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ConfigMaps and Secrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secrets-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secrets Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Deployments
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Application Deployments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-app-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core App Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ml-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      ML Service
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingress-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ingress Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 CI/CD Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 CI/CD Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#github-actions-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitHub Actions Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Monitoring &amp; Logging
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Monitoring &amp; Logging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prometheus-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prometheus Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grafana-dashboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grafana Dashboards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 Security Considerations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔒 Security Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#network-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Security
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pod-security-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pod Security Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disaster-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Disaster Recovery
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 Disaster Recovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup Strategy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recovery Procedures
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Deployment Checklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📋 Deployment Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="deployment-guide">Deployment Guide</h1>
+<blockquote>
+<p>Comprehensive deployment guide for the Metis platform covering local development, staging, and production environments.</p>
+</blockquote>
+<h2 id="overview">📋 Overview</h2>
+<p>This guide covers the complete deployment strategy for the Metis platform, from local development setup to production deployment. The platform uses a containerized microservices architecture with Kubernetes orchestration.</p>
+<p><strong>Deployment Environments:</strong>
+- <strong>Local Development</strong>: Docker Compose for rapid development
+- <strong>Staging</strong>: Kubernetes cluster for testing and validation
+- <strong>Production</strong>: Multi-region Kubernetes deployment with high availability</p>
+<hr />
+<h2 id="infrastructure-architecture">🏗️ Infrastructure Architecture</h2>
+<h3 id="deployment-topology"><strong>Deployment Topology</strong></h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                    PRODUCTION DEPLOYMENT                        │
+├─────────────────────────────────────────────────────────────────┤
+│  🌐 LOAD BALANCER (AWS ALB)                                   │
+│  ├─ SSL Termination                                            │
+│  ├─ Health Checks                                              │
+│  └─ Traffic Distribution                                       │
+├─────────────────────────────────────────────────────────────────┤
+│  ☸️ KUBERNETES CLUSTER (EKS)                                  │
+│  ├─ Core App Services (Go)                                     │
+│  ├─ ML Services (Python/FastAPI)                               │
+│  ├─ Temporal Workers                                           │
+│  └─ Supporting Services                                        │
+├─────────────────────────────────────────────────────────────────┤
+│  💾 DATA LAYER                                                │
+│  ├─ RDS PostgreSQL (Multi-AZ)                                  │
+│  ├─ ElastiCache Redis (Cluster Mode)                           │
+│  ├─ S3 (Multi-region replication)                              │
+│  └─ RabbitMQ (Clustered)                                       │
+├─────────────────────────────────────────────────────────────────┤
+│  📊 MONITORING &amp; LOGGING                                      │
+│  ├─ Prometheus + Grafana                                       │
+│  ├─ ELK Stack (Elasticsearch, Logstash, Kibana)               │
+│  └─ AWS CloudWatch                                             │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="local-development-setup">🐳 Local Development Setup</h2>
+<h3 id="prerequisites"><strong>Prerequisites</strong></h3>
+<pre><code class="language-bash"># Required tools
+- Docker Desktop 4.20+
+- Docker Compose 2.20+
+- Go 1.21+
+- Python 3.11+
+- Node.js 18+ (for frontend)
+- kubectl 1.28+
+- Helm 3.12+
+</code></pre>
+<h3 id="environment-setup"><strong>Environment Setup</strong></h3>
+<pre><code class="language-bash"># Clone repository
+git clone https://github.com/metis/platform.git
+cd platform
+
+# Copy environment template
+cp .env.example .env.local
+
+# Edit environment variables
+vim .env.local
+</code></pre>
+<h3 id="environment-variables"><strong>Environment Variables</strong></h3>
+<pre><code class="language-bash"># .env.local
+# Database Configuration
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_DB=metis_dev
+POSTGRES_USER=metis
+POSTGRES_PASSWORD=dev_password
+
+# Redis Configuration
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASSWORD=
+
+# S3 Configuration (LocalStack)
+AWS_ENDPOINT_URL=http://localhost:4566
+AWS_ACCESS_KEY_ID=test
+AWS_SECRET_ACCESS_KEY=test
+AWS_REGION=us-east-1
+S3_BUCKET=metis-dev-bucket
+
+# RabbitMQ Configuration
+RABBITMQ_HOST=localhost
+RABBITMQ_PORT=5672
+RABBITMQ_USER=metis
+RABBITMQ_PASSWORD=dev_password
+
+# Temporal Configuration
+TEMPORAL_HOST=localhost
+TEMPORAL_PORT=7233
+
+# ML Service Configuration
+ML_SERVICE_URL=http://localhost:8001
+MODEL_STORAGE_PATH=/app/models
+
+# Application Configuration
+APP_ENV=development
+LOG_LEVEL=debug
+JWT_SECRET=dev_jwt_secret_key
+ENCRYPTION_KEY=dev_encryption_key_32_chars
+</code></pre>
+<h3 id="docker-compose-setup"><strong>Docker Compose Setup</strong></h3>
+<pre><code class="language-yaml"># docker-compose.dev.yml
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: metis_dev
+      POSTGRES_USER: metis
+      POSTGRES_PASSWORD: dev_password
+    ports:
+      - &quot;5432:5432&quot;
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - &quot;6379:6379&quot;
+    volumes:
+      - redis_data:/data
+
+  # LocalStack (AWS Services)
+  localstack:
+    image: localstack/localstack:latest
+    environment:
+      SERVICES: s3,sqs,sns
+      DEBUG: 1
+      DATA_DIR: /tmp/localstack/data
+    ports:
+      - &quot;4566:4566&quot;
+    volumes:
+      - localstack_data:/tmp/localstack
+
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: metis
+      RABBITMQ_DEFAULT_PASS: dev_password
+    ports:
+      - &quot;5672:5672&quot;
+      - &quot;15672:15672&quot;
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  # Temporal
+  temporal:
+    image: temporalio/auto-setup:latest
+    environment:
+      DB: postgresql
+      DB_PORT: 5432
+      POSTGRES_USER: metis
+      POSTGRES_PWD: dev_password
+      POSTGRES_SEEDS: postgres
+    ports:
+      - &quot;7233:7233&quot;
+      - &quot;8233:8233&quot;
+    depends_on:
+      - postgres
+
+  # Core App Service
+  core-app:
+    build:
+      context: .
+      dockerfile: cmd/core/Dockerfile.dev
+    environment:
+      - DATABASE_URL=postgres://metis:dev_password@postgres:5432/metis_dev
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp://metis:dev_password@rabbitmq:5672/
+    ports:
+      - &quot;8080:8080&quot;
+    volumes:
+      - ./cmd/core:/app/cmd/core
+      - ./pkg:/app/pkg
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+
+  # ML Service
+  ml-service:
+    build:
+      context: .
+      dockerfile: cmd/ml/Dockerfile.dev
+    environment:
+      - DATABASE_URL=postgres://metis:dev_password@postgres:5432/metis_dev
+      - REDIS_URL=redis://redis:6379
+      - MODEL_STORAGE_PATH=/app/models
+    ports:
+      - &quot;8001:8000&quot;
+    volumes:
+      - ./cmd/ml:/app/cmd/ml
+      - ./models:/app/models
+    depends_on:
+      - postgres
+      - redis
+
+volumes:
+  postgres_data:
+  redis_data:
+  localstack_data:
+  rabbitmq_data:
+</code></pre>
+<h3 id="development-commands"><strong>Development Commands</strong></h3>
+<pre><code class="language-bash"># Start all services
+make dev-up
+
+# Stop all services
+make dev-down
+
+# View logs
+make dev-logs
+
+# Run database migrations
+make dev-migrate
+
+# Seed development data
+make dev-seed
+
+# Run tests
+make test
+
+# Build and run specific service
+make dev-build-core
+make dev-run-core
+</code></pre>
+<h3 id="makefile"><strong>Makefile</strong></h3>
+<pre><code class="language-makefile"># Makefile
+.PHONY: dev-up dev-down dev-logs dev-migrate dev-seed test
+
+# Development environment
+dev-up:
+    docker-compose -f docker-compose.dev.yml up -d
+    @echo &quot;Development environment started&quot;
+    @echo &quot;Core App: http://localhost:8080&quot;
+    @echo &quot;ML Service: http://localhost:8001&quot;
+    @echo &quot;RabbitMQ Management: http://localhost:15672&quot;
+
+dev-down:
+    docker-compose -f docker-compose.dev.yml down
+
+dev-logs:
+    docker-compose -f docker-compose.dev.yml logs -f
+
+dev-migrate:
+    docker-compose -f docker-compose.dev.yml exec core-app go run cmd/migrate/main.go
+
+dev-seed:
+    docker-compose -f docker-compose.dev.yml exec core-app go run cmd/seed/main.go
+
+# Testing
+test:
+    go test ./...
+    cd cmd/ml &amp;&amp; python -m pytest
+
+test-integration:
+    docker-compose -f docker-compose.test.yml up --abort-on-container-exit
+
+# Building
+build-core:
+    docker build -f cmd/core/Dockerfile -t metis/core-app:latest .
+
+build-ml:
+    docker build -f cmd/ml/Dockerfile -t metis/ml-service:latest .
+
+build-all: build-core build-ml
+
+# Linting and formatting
+lint:
+    golangci-lint run
+    cd cmd/ml &amp;&amp; black . &amp;&amp; isort . &amp;&amp; flake8
+
+format:
+    go fmt ./...
+    cd cmd/ml &amp;&amp; black . &amp;&amp; isort .
+</code></pre>
+<hr />
+<h2 id="kubernetes-deployment">☸️ Kubernetes Deployment</h2>
+<h3 id="cluster-setup"><strong>Cluster Setup</strong></h3>
+<h4 id="eks-cluster-configuration"><strong>EKS Cluster Configuration</strong></h4>
+<pre><code class="language-yaml"># cluster-config.yaml
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: metis-production
+  region: us-west-2
+  version: &quot;1.28&quot;
+
+nodeGroups:
+  - name: core-services
+    instanceType: m5.large
+    minSize: 2
+    maxSize: 10
+    desiredCapacity: 3
+    volumeSize: 50
+    ssh:
+      allow: false
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        cloudWatch: true
+        ebs: true
+        efs: true
+        albIngress: true
+
+  - name: ml-services
+    instanceType: m5.xlarge
+    minSize: 1
+    maxSize: 5
+    desiredCapacity: 2
+    volumeSize: 100
+    ssh:
+      allow: false
+    labels:
+      workload-type: ml-intensive
+
+addons:
+  - name: vpc-cni
+  - name: coredns
+  - name: kube-proxy
+  - name: aws-ebs-csi-driver
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: [&quot;*&quot;]
+</code></pre>
+<h4 id="create-cluster"><strong>Create Cluster</strong></h4>
+<pre><code class="language-bash"># Create EKS cluster
+eksctl create cluster -f cluster-config.yaml
+
+# Install AWS Load Balancer Controller
+kubectl apply -k &quot;github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master&quot;
+
+helm repo add eks https://aws.github.io/eks-charts
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=metis-production \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller
+</code></pre>
+<h3 id="namespace-configuration"><strong>Namespace Configuration</strong></h3>
+<pre><code class="language-yaml"># namespaces.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metis-production
+  labels:
+    name: metis-production
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metis-staging
+  labels:
+    name: metis-staging
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    name: monitoring
+</code></pre>
+<h3 id="configmaps-and-secrets"><strong>ConfigMaps and Secrets</strong></h3>
+<h4 id="application-configuration"><strong>Application Configuration</strong></h4>
+<pre><code class="language-yaml"># configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metis-config
+  namespace: metis-production
+data:
+  APP_ENV: &quot;production&quot;
+  LOG_LEVEL: &quot;info&quot;
+  POSTGRES_HOST: &quot;metis-postgres.cluster-xyz.us-west-2.rds.amazonaws.com&quot;
+  POSTGRES_PORT: &quot;5432&quot;
+  POSTGRES_DB: &quot;metis_production&quot;
+  REDIS_HOST: &quot;metis-redis.cache.amazonaws.com&quot;
+  REDIS_PORT: &quot;6379&quot;
+  RABBITMQ_HOST: &quot;metis-rabbitmq.mq.us-west-2.amazonaws.com&quot;
+  RABBITMQ_PORT: &quot;5672&quot;
+  TEMPORAL_HOST: &quot;temporal-frontend.metis-production.svc.cluster.local&quot;
+  TEMPORAL_PORT: &quot;7233&quot;
+  S3_BUCKET: &quot;metis-production-storage&quot;
+  AWS_REGION: &quot;us-west-2&quot;
+</code></pre>
+<h4 id="secrets-management"><strong>Secrets Management</strong></h4>
+<pre><code class="language-yaml"># secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: metis-secrets
+  namespace: metis-production
+type: Opaque
+data:
+  POSTGRES_PASSWORD: &lt;base64-encoded-password&gt;
+  REDIS_PASSWORD: &lt;base64-encoded-password&gt;
+  RABBITMQ_PASSWORD: &lt;base64-encoded-password&gt;
+  JWT_SECRET: &lt;base64-encoded-jwt-secret&gt;
+  ENCRYPTION_KEY: &lt;base64-encoded-encryption-key&gt;
+  AWS_ACCESS_KEY_ID: &lt;base64-encoded-access-key&gt;
+  AWS_SECRET_ACCESS_KEY: &lt;base64-encoded-secret-key&gt;
+</code></pre>
+<h3 id="application-deployments"><strong>Application Deployments</strong></h3>
+<h4 id="core-app-service"><strong>Core App Service</strong></h4>
+<pre><code class="language-yaml"># core-app-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: core-app
+  namespace: metis-production
+  labels:
+    app: core-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: core-app
+  template:
+    metadata:
+      labels:
+        app: core-app
+    spec:
+      containers:
+      - name: core-app
+        image: metis/core-app:v1.0.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: &quot;postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(POSTGRES_DB)&quot;
+        envFrom:
+        - configMapRef:
+            name: metis-config
+        - secretRef:
+            name: metis-secrets
+        resources:
+          requests:
+            memory: &quot;256Mi&quot;
+            cpu: &quot;250m&quot;
+          limits:
+            memory: &quot;512Mi&quot;
+            cpu: &quot;500m&quot;
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: core-app-service
+  namespace: metis-production
+spec:
+  selector:
+    app: core-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: ClusterIP
+</code></pre>
+<h4 id="ml-service"><strong>ML Service</strong></h4>
+<pre><code class="language-yaml"># ml-service-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-service
+  namespace: metis-production
+  labels:
+    app: ml-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ml-service
+  template:
+    metadata:
+      labels:
+        app: ml-service
+    spec:
+      nodeSelector:
+        workload-type: ml-intensive
+      containers:
+      - name: ml-service
+        image: metis/ml-service:v1.0.0
+        ports:
+        - containerPort: 8000
+        env:
+        - name: MODEL_STORAGE_PATH
+          value: &quot;/app/models&quot;
+        envFrom:
+        - configMapRef:
+            name: metis-config
+        - secretRef:
+            name: metis-secrets
+        resources:
+          requests:
+            memory: &quot;1Gi&quot;
+            cpu: &quot;500m&quot;
+          limits:
+            memory: &quot;2Gi&quot;
+            cpu: &quot;1000m&quot;
+        volumeMounts:
+        - name: model-storage
+          mountPath: /app/models
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: ml-models-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-service
+  namespace: metis-production
+spec:
+  selector:
+    app: ml-service
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP
+</code></pre>
+<h3 id="ingress-configuration"><strong>Ingress Configuration</strong></h3>
+<pre><code class="language-yaml"># ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: metis-ingress
+  namespace: metis-production
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:123456789:certificate/abc123
+    alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-2-2017-01
+    alb.ingress.kubernetes.io/listen-ports: '[{&quot;HTTP&quot;: 80}, {&quot;HTTPS&quot;: 443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+spec:
+  rules:
+  - host: api.metis.com
+    http:
+      paths:
+      - path: /api/v1/ml
+        pathType: Prefix
+        backend:
+          service:
+            name: ml-service
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: core-app-service
+            port:
+              number: 80
+</code></pre>
+<hr />
+<h2 id="cicd-pipeline">🚀 CI/CD Pipeline</h2>
+<h3 id="github-actions-workflow"><strong>GitHub Actions Workflow</strong></h3>
+<pre><code class="language-yaml"># .github/workflows/deploy.yml
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  AWS_REGION: us-west-2
+  EKS_CLUSTER_NAME: metis-production
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.21
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.11
+
+    - name: Run Go tests
+      run: |
+        go mod download
+        go test ./...
+
+    - name: Run Python tests
+      run: |
+        cd cmd/ml
+        pip install -r requirements.txt
+        python -m pytest
+
+    - name: Run linting
+      run: |
+        golangci-lint run
+        cd cmd/ml &amp;&amp; black --check . &amp;&amp; isort --check . &amp;&amp; flake8
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build and push Core App image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: metis/core-app
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -f cmd/core/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+    - name: Build and push ML Service image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: metis/ml-service
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -f cmd/ml/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Update kubeconfig
+      run: |
+        aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
+
+    - name: Deploy to Kubernetes
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        # Update image tags in deployment files
+        sed -i &quot;s|metis/core-app:.*|metis/core-app:$IMAGE_TAG|g&quot; k8s/core-app-deployment.yaml
+        sed -i &quot;s|metis/ml-service:.*|metis/ml-service:$IMAGE_TAG|g&quot; k8s/ml-service-deployment.yaml
+
+        # Apply configurations
+        kubectl apply -f k8s/
+
+        # Wait for rollout to complete
+        kubectl rollout status deployment/core-app -n metis-production
+        kubectl rollout status deployment/ml-service -n metis-production
+</code></pre>
+<hr />
+<h2 id="monitoring-logging">📊 Monitoring &amp; Logging</h2>
+<h3 id="prometheus-configuration"><strong>Prometheus Configuration</strong></h3>
+<pre><code class="language-yaml"># prometheus-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: monitoring
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+
+    rule_files:
+      - &quot;metis_rules.yml&quot;
+
+    scrape_configs:
+      - job_name: 'kubernetes-pods'
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+
+      - job_name: 'metis-core-app'
+        static_configs:
+          - targets: ['core-app-service.metis-production.svc.cluster.local:80']
+        metrics_path: /metrics
+
+      - job_name: 'metis-ml-service'
+        static_configs:
+          - targets: ['ml-service.metis-production.svc.cluster.local:80']
+        metrics_path: /metrics
+
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets:
+              - alertmanager.monitoring.svc.cluster.local:9093
+</code></pre>
+<h3 id="grafana-dashboards"><strong>Grafana Dashboards</strong></h3>
+<pre><code class="language-json">{
+  &quot;dashboard&quot;: {
+    &quot;title&quot;: &quot;Metis Platform Overview&quot;,
+    &quot;panels&quot;: [
+      {
+        &quot;title&quot;: &quot;Request Rate&quot;,
+        &quot;type&quot;: &quot;graph&quot;,
+        &quot;targets&quot;: [
+          {
+            &quot;expr&quot;: &quot;rate(http_requests_total[5m])&quot;,
+            &quot;legendFormat&quot;: &quot;{{service}}&quot;
+          }
+        ]
+      },
+      {
+        &quot;title&quot;: &quot;Response Time&quot;,
+        &quot;type&quot;: &quot;graph&quot;,
+        &quot;targets&quot;: [
+          {
+            &quot;expr&quot;: &quot;histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))&quot;,
+            &quot;legendFormat&quot;: &quot;95th percentile&quot;
+          }
+        ]
+      },
+      {
+        &quot;title&quot;: &quot;Error Rate&quot;,
+        &quot;type&quot;: &quot;graph&quot;,
+        &quot;targets&quot;: [
+          {
+            &quot;expr&quot;: &quot;rate(http_requests_total{status=~\&quot;5..\&quot;}[5m])&quot;,
+            &quot;legendFormat&quot;: &quot;5xx errors&quot;
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre>
+<hr />
+<h2 id="security-considerations">🔒 Security Considerations</h2>
+<h3 id="network-security"><strong>Network Security</strong></h3>
+<pre><code class="language-yaml"># network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: metis-network-policy
+  namespace: metis-production
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: metis-production
+    - podSelector: {}
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: metis-production
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+</code></pre>
+<h3 id="pod-security-standards"><strong>Pod Security Standards</strong></h3>
+<pre><code class="language-yaml"># pod-security-policy.yaml
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: metis-psp
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    - 'downwardAPI'
+    - 'persistentVolumeClaim'
+  runAsUser:
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    rule: 'RunAsAny'
+  fsGroup:
+    rule: 'RunAsAny'
+</code></pre>
+<hr />
+<h2 id="disaster-recovery">🚨 Disaster Recovery</h2>
+<h3 id="backup-strategy"><strong>Backup Strategy</strong></h3>
+<pre><code class="language-bash">#!/bin/bash
+# backup-script.sh
+
+# Database backup
+kubectl exec -n metis-production deployment/postgres -- pg_dump -U metis metis_production &gt; backup-$(date +%Y%m%d).sql
+
+# Upload to S3
+aws s3 cp backup-$(date +%Y%m%d).sql s3://metis-backups/database/
+
+# Kubernetes configuration backup
+kubectl get all -n metis-production -o yaml &gt; k8s-backup-$(date +%Y%m%d).yaml
+aws s3 cp k8s-backup-$(date +%Y%m%d).yaml s3://metis-backups/k8s/
+
+# Clean up local files
+rm backup-$(date +%Y%m%d).sql k8s-backup-$(date +%Y%m%d).yaml
+</code></pre>
+<h3 id="recovery-procedures"><strong>Recovery Procedures</strong></h3>
+<pre><code class="language-bash">#!/bin/bash
+# recovery-script.sh
+
+# Restore database
+aws s3 cp s3://metis-backups/database/backup-20240101.sql .
+kubectl exec -n metis-production deployment/postgres -- psql -U metis -d metis_production &lt; backup-20240101.sql
+
+# Restore Kubernetes resources
+aws s3 cp s3://metis-backups/k8s/k8s-backup-20240101.yaml .
+kubectl apply -f k8s-backup-20240101.yaml
+</code></pre>
+<hr />
+<h2 id="deployment-checklist">📋 Deployment Checklist</h2>
+<h3 id="pre-deployment"><strong>Pre-deployment</strong></h3>
+<ul>
+<li>[ ] All tests passing</li>
+<li>[ ] Security scan completed</li>
+<li>[ ] Performance testing completed</li>
+<li>[ ] Database migrations tested</li>
+<li>[ ] Backup procedures verified</li>
+<li>[ ] Monitoring alerts configured</li>
+</ul>
+<h3 id="deployment"><strong>Deployment</strong></h3>
+<ul>
+<li>[ ] Blue-green deployment strategy</li>
+<li>[ ] Health checks passing</li>
+<li>[ ] Database migrations applied</li>
+<li>[ ] Configuration updated</li>
+<li>[ ] SSL certificates valid</li>
+<li>[ ] Load balancer configured</li>
+</ul>
+<h3 id="post-deployment"><strong>Post-deployment</strong></h3>
+<ul>
+<li>[ ] Application health verified</li>
+<li>[ ] Monitoring dashboards updated</li>
+<li>[ ] Performance metrics baseline</li>
+<li>[ ] Error rates within acceptable limits</li>
+<li>[ ] User acceptance testing</li>
+<li>[ ] Documentation updated</li>
+</ul>
+<hr />
+<p><em>This deployment guide ensures reliable, secure, and scalable deployment of the Metis platform across all environments.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

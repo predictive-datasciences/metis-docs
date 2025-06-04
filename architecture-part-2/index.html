@@ -1,0 +1,1804 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../architecture-part-1/" rel="prev"/>
+<link href="../architecture-part-3/" rel="next"/>
+<link href="../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.14" name="generator"/>
+<title>Architecture - Data storage - Metis Docs</title>
+<link href="../assets/stylesheets/main.342714a4.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#metis-platform-architecture-part-2-data-storage">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header md-header--shadow" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="Metis Docs" class="md-header__button md-logo" data-md-component="logo" href=".." title="Metis Docs">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            Metis Docs
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Architecture - Data storage
+            
+          </span>
+</div>
+</div>
+</div>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Metis Docs" class="md-nav__button md-logo" data-md-component="logo" href=".." title="Metis Docs">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    Metis Docs
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Tech
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Tech
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+<span class="md-ellipsis">
+    Architecture
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_1_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_1">
+<span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architecture-overview/">
+<span class="md-ellipsis">
+    Introduction to Metis
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architecture-part-1/">
+<span class="md-ellipsis">
+    Architecture - Data flow
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Architecture - Data storage
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Architecture - Data storage
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduction">
+<span class="md-ellipsis">
+      💾 Introduction
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-architecture-overview">
+<span class="md-ellipsis">
+      🏗️ Storage Architecture Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#primary-database-postgresql">
+<span class="md-ellipsis">
+      🗄️ Primary Database: PostgreSQL
+    </span>
+</a>
+<nav aria-label="🗄️ Primary Database: PostgreSQL" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#multi-tenant-database-design">
+<span class="md-ellipsis">
+      Multi-Tenant Database Design
+    </span>
+</a>
+<nav aria-label="Multi-Tenant Database Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database-schema-structure">
+<span class="md-ellipsis">
+      Database Schema Structure:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-management">
+<span class="md-ellipsis">
+      Connection Management
+    </span>
+</a>
+<nav aria-label="Connection Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-pooling-configuration">
+<span class="md-ellipsis">
+      Connection Pooling Configuration:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query-optimization">
+<span class="md-ellipsis">
+      Query Optimization
+    </span>
+</a>
+<nav aria-label="Query Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#indexing-strategy">
+<span class="md-ellipsis">
+      Indexing Strategy:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#object-storage-s3-minio">
+<span class="md-ellipsis">
+      📁 Object Storage: S3 &amp; MinIO
+    </span>
+</a>
+<nav aria-label="📁 Object Storage: S3 &amp; MinIO" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-strategy">
+<span class="md-ellipsis">
+      Storage Strategy
+    </span>
+</a>
+<nav aria-label="Storage Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#file-organization">
+<span class="md-ellipsis">
+      File Organization:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#s3-configuration">
+<span class="md-ellipsis">
+      S3 Configuration
+    </span>
+</a>
+<nav aria-label="S3 Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bucket-policies">
+<span class="md-ellipsis">
+      Bucket Policies:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lifecycle-management">
+<span class="md-ellipsis">
+      Lifecycle Management:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#analytics-storage">
+<span class="md-ellipsis">
+      📊 Analytics Storage
+    </span>
+</a>
+<nav aria-label="📊 Analytics Storage" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clickhouse-for-event-analytics">
+<span class="md-ellipsis">
+      ClickHouse for Event Analytics
+    </span>
+</a>
+<nav aria-label="ClickHouse for Event Analytics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-storage-schema">
+<span class="md-ellipsis">
+      Event Storage Schema:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query-patterns">
+<span class="md-ellipsis">
+      Query Patterns:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#duckdb-for-embedded-analytics">
+<span class="md-ellipsis">
+      DuckDB for Embedded Analytics
+    </span>
+</a>
+<nav aria-label="DuckDB for Embedded Analytics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#use-cases">
+<span class="md-ellipsis">
+      Use Cases:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workflow-storage-temporal">
+<span class="md-ellipsis">
+      🔄 Workflow Storage: Temporal
+    </span>
+</a>
+<nav aria-label="🔄 Workflow Storage: Temporal" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workflow-state-management">
+<span class="md-ellipsis">
+      Workflow State Management
+    </span>
+</a>
+<nav aria-label="Workflow State Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#temporal-database-schema">
+<span class="md-ellipsis">
+      Temporal Database Schema:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#retention-policies">
+<span class="md-ellipsis">
+      Retention Policies:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#caching-strategy">
+<span class="md-ellipsis">
+      ⚡ Caching Strategy
+    </span>
+</a>
+<nav aria-label="⚡ Caching Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redis-implementation">
+<span class="md-ellipsis">
+      Redis Implementation
+    </span>
+</a>
+<nav aria-label="Redis Implementation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-patterns">
+<span class="md-ellipsis">
+      Cache Patterns:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-invalidation">
+<span class="md-ellipsis">
+      Cache Invalidation:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-security-compliance">
+<span class="md-ellipsis">
+      🔒 Data Security &amp; Compliance
+    </span>
+</a>
+<nav aria-label="🔒 Data Security &amp; Compliance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#encryption">
+<span class="md-ellipsis">
+      Encryption
+    </span>
+</a>
+<nav aria-label="Encryption" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#at-rest">
+<span class="md-ellipsis">
+      At Rest:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#in-transit">
+<span class="md-ellipsis">
+      In Transit:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-privacy">
+<span class="md-ellipsis">
+      Data Privacy
+    </span>
+</a>
+<nav aria-label="Data Privacy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gdpr-compliance">
+<span class="md-ellipsis">
+      GDPR Compliance:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backup-recovery">
+<span class="md-ellipsis">
+      💾 Backup &amp; Recovery
+    </span>
+</a>
+<nav aria-label="💾 Backup &amp; Recovery" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backup-strategy">
+<span class="md-ellipsis">
+      Backup Strategy
+    </span>
+</a>
+<nav aria-label="Backup Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backup-schedule">
+<span class="md-ellipsis">
+      Backup Schedule:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recovery-procedures">
+<span class="md-ellipsis">
+      Recovery Procedures
+    </span>
+</a>
+<nav aria-label="Recovery Procedures" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rtorpo-targets">
+<span class="md-ellipsis">
+      RTO/RPO Targets:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-optimization">
+<span class="md-ellipsis">
+      📈 Performance Optimization
+    </span>
+</a>
+<nav aria-label="📈 Performance Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database-performance">
+<span class="md-ellipsis">
+      Database Performance
+    </span>
+</a>
+<nav aria-label="Database Performance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query-optimization_1">
+<span class="md-ellipsis">
+      Query Optimization:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-pooling">
+<span class="md-ellipsis">
+      Connection Pooling:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-performance">
+<span class="md-ellipsis">
+      Storage Performance
+    </span>
+</a>
+<nav aria-label="Storage Performance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#s3-optimization">
+<span class="md-ellipsis">
+      S3 Optimization:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-alerting">
+<span class="md-ellipsis">
+      🔍 Monitoring &amp; Alerting
+    </span>
+</a>
+<nav aria-label="🔍 Monitoring &amp; Alerting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database-monitoring">
+<span class="md-ellipsis">
+      Database Monitoring
+    </span>
+</a>
+<nav aria-label="Database Monitoring" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-metrics">
+<span class="md-ellipsis">
+      Key Metrics:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alerts">
+<span class="md-ellipsis">
+      Alerts:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-monitoring">
+<span class="md-ellipsis">
+      Storage Monitoring
+    </span>
+</a>
+<nav aria-label="Storage Monitoring" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#s3-metrics">
+<span class="md-ellipsis">
+      S3 Metrics:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-pitfalls-solutions">
+<span class="md-ellipsis">
+      ⚠️ Common Pitfalls &amp; Solutions
+    </span>
+</a>
+<nav aria-label="⚠️ Common Pitfalls &amp; Solutions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-connection-pool-exhaustion">
+<span class="md-ellipsis">
+      1. Connection Pool Exhaustion 🚨
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-tenant-data-leakage">
+<span class="md-ellipsis">
+      2. Tenant Data Leakage 🔒
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-storage-cost-explosion">
+<span class="md-ellipsis">
+      3. Storage Cost Explosion 💰
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-backup-failures">
+<span class="md-ellipsis">
+      4. Backup Failures 💾
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#future-enhancements">
+<span class="md-ellipsis">
+      🎯 Future Enhancements
+    </span>
+</a>
+<nav aria-label="🎯 Future Enhancements" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#immediate-improvements">
+<span class="md-ellipsis">
+      Immediate Improvements
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#future-enhancements_1">
+<span class="md-ellipsis">
+      Future Enhancements
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../architecture-part-3/">
+<span class="md-ellipsis">
+    Architecture - Data processing
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" id="__nav_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Coding guidelines
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_2_label" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_2_2">
+<span class="md-nav__icon md-icon"></span>
+            Coding guidelines
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../python-guidelines/">
+<span class="md-ellipsis">
+    Python
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../go-guidelines/">
+<span class="md-ellipsis">
+    Go
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../repo-structure.md">
+<span class="md-ellipsis">
+    Repo-structure
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../testing.md">
+<span class="md-ellipsis">
+    Testing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../logging.md">
+<span class="md-ellipsis">
+    Logging
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../monitoring.md">
+<span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../error-handling.md">
+<span class="md-ellipsis">
+    Error handling
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../metrics.md">
+<span class="md-ellipsis">
+    Metrics
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../tracing.md">
+<span class="md-ellipsis">
+    Tracing
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../configuration.md">
+<span class="md-ellipsis">
+    Configuration
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#introduction">
+<span class="md-ellipsis">
+      💾 Introduction
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-architecture-overview">
+<span class="md-ellipsis">
+      🏗️ Storage Architecture Overview
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#primary-database-postgresql">
+<span class="md-ellipsis">
+      🗄️ Primary Database: PostgreSQL
+    </span>
+</a>
+<nav aria-label="🗄️ Primary Database: PostgreSQL" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#multi-tenant-database-design">
+<span class="md-ellipsis">
+      Multi-Tenant Database Design
+    </span>
+</a>
+<nav aria-label="Multi-Tenant Database Design" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database-schema-structure">
+<span class="md-ellipsis">
+      Database Schema Structure:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-management">
+<span class="md-ellipsis">
+      Connection Management
+    </span>
+</a>
+<nav aria-label="Connection Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-pooling-configuration">
+<span class="md-ellipsis">
+      Connection Pooling Configuration:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query-optimization">
+<span class="md-ellipsis">
+      Query Optimization
+    </span>
+</a>
+<nav aria-label="Query Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#indexing-strategy">
+<span class="md-ellipsis">
+      Indexing Strategy:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#object-storage-s3-minio">
+<span class="md-ellipsis">
+      📁 Object Storage: S3 &amp; MinIO
+    </span>
+</a>
+<nav aria-label="📁 Object Storage: S3 &amp; MinIO" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-strategy">
+<span class="md-ellipsis">
+      Storage Strategy
+    </span>
+</a>
+<nav aria-label="Storage Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#file-organization">
+<span class="md-ellipsis">
+      File Organization:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#s3-configuration">
+<span class="md-ellipsis">
+      S3 Configuration
+    </span>
+</a>
+<nav aria-label="S3 Configuration" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bucket-policies">
+<span class="md-ellipsis">
+      Bucket Policies:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lifecycle-management">
+<span class="md-ellipsis">
+      Lifecycle Management:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#analytics-storage">
+<span class="md-ellipsis">
+      📊 Analytics Storage
+    </span>
+</a>
+<nav aria-label="📊 Analytics Storage" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#clickhouse-for-event-analytics">
+<span class="md-ellipsis">
+      ClickHouse for Event Analytics
+    </span>
+</a>
+<nav aria-label="ClickHouse for Event Analytics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#event-storage-schema">
+<span class="md-ellipsis">
+      Event Storage Schema:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query-patterns">
+<span class="md-ellipsis">
+      Query Patterns:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#duckdb-for-embedded-analytics">
+<span class="md-ellipsis">
+      DuckDB for Embedded Analytics
+    </span>
+</a>
+<nav aria-label="DuckDB for Embedded Analytics" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#use-cases">
+<span class="md-ellipsis">
+      Use Cases:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workflow-storage-temporal">
+<span class="md-ellipsis">
+      🔄 Workflow Storage: Temporal
+    </span>
+</a>
+<nav aria-label="🔄 Workflow Storage: Temporal" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#workflow-state-management">
+<span class="md-ellipsis">
+      Workflow State Management
+    </span>
+</a>
+<nav aria-label="Workflow State Management" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#temporal-database-schema">
+<span class="md-ellipsis">
+      Temporal Database Schema:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#retention-policies">
+<span class="md-ellipsis">
+      Retention Policies:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#caching-strategy">
+<span class="md-ellipsis">
+      ⚡ Caching Strategy
+    </span>
+</a>
+<nav aria-label="⚡ Caching Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#redis-implementation">
+<span class="md-ellipsis">
+      Redis Implementation
+    </span>
+</a>
+<nav aria-label="Redis Implementation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-patterns">
+<span class="md-ellipsis">
+      Cache Patterns:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cache-invalidation">
+<span class="md-ellipsis">
+      Cache Invalidation:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-security-compliance">
+<span class="md-ellipsis">
+      🔒 Data Security &amp; Compliance
+    </span>
+</a>
+<nav aria-label="🔒 Data Security &amp; Compliance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#encryption">
+<span class="md-ellipsis">
+      Encryption
+    </span>
+</a>
+<nav aria-label="Encryption" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#at-rest">
+<span class="md-ellipsis">
+      At Rest:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#in-transit">
+<span class="md-ellipsis">
+      In Transit:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#data-privacy">
+<span class="md-ellipsis">
+      Data Privacy
+    </span>
+</a>
+<nav aria-label="Data Privacy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#gdpr-compliance">
+<span class="md-ellipsis">
+      GDPR Compliance:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backup-recovery">
+<span class="md-ellipsis">
+      💾 Backup &amp; Recovery
+    </span>
+</a>
+<nav aria-label="💾 Backup &amp; Recovery" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backup-strategy">
+<span class="md-ellipsis">
+      Backup Strategy
+    </span>
+</a>
+<nav aria-label="Backup Strategy" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#backup-schedule">
+<span class="md-ellipsis">
+      Backup Schedule:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recovery-procedures">
+<span class="md-ellipsis">
+      Recovery Procedures
+    </span>
+</a>
+<nav aria-label="Recovery Procedures" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rtorpo-targets">
+<span class="md-ellipsis">
+      RTO/RPO Targets:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#performance-optimization">
+<span class="md-ellipsis">
+      📈 Performance Optimization
+    </span>
+</a>
+<nav aria-label="📈 Performance Optimization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database-performance">
+<span class="md-ellipsis">
+      Database Performance
+    </span>
+</a>
+<nav aria-label="Database Performance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#query-optimization_1">
+<span class="md-ellipsis">
+      Query Optimization:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#connection-pooling">
+<span class="md-ellipsis">
+      Connection Pooling:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-performance">
+<span class="md-ellipsis">
+      Storage Performance
+    </span>
+</a>
+<nav aria-label="Storage Performance" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#s3-optimization">
+<span class="md-ellipsis">
+      S3 Optimization:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#monitoring-alerting">
+<span class="md-ellipsis">
+      🔍 Monitoring &amp; Alerting
+    </span>
+</a>
+<nav aria-label="🔍 Monitoring &amp; Alerting" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#database-monitoring">
+<span class="md-ellipsis">
+      Database Monitoring
+    </span>
+</a>
+<nav aria-label="Database Monitoring" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#key-metrics">
+<span class="md-ellipsis">
+      Key Metrics:
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#alerts">
+<span class="md-ellipsis">
+      Alerts:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#storage-monitoring">
+<span class="md-ellipsis">
+      Storage Monitoring
+    </span>
+</a>
+<nav aria-label="Storage Monitoring" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#s3-metrics">
+<span class="md-ellipsis">
+      S3 Metrics:
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#common-pitfalls-solutions">
+<span class="md-ellipsis">
+      ⚠️ Common Pitfalls &amp; Solutions
+    </span>
+</a>
+<nav aria-label="⚠️ Common Pitfalls &amp; Solutions" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1-connection-pool-exhaustion">
+<span class="md-ellipsis">
+      1. Connection Pool Exhaustion 🚨
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2-tenant-data-leakage">
+<span class="md-ellipsis">
+      2. Tenant Data Leakage 🔒
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#3-storage-cost-explosion">
+<span class="md-ellipsis">
+      3. Storage Cost Explosion 💰
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#4-backup-failures">
+<span class="md-ellipsis">
+      4. Backup Failures 💾
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#future-enhancements">
+<span class="md-ellipsis">
+      🎯 Future Enhancements
+    </span>
+</a>
+<nav aria-label="🎯 Future Enhancements" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#immediate-improvements">
+<span class="md-ellipsis">
+      Immediate Improvements
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#future-enhancements_1">
+<span class="md-ellipsis">
+      Future Enhancements
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="metis-platform-architecture-part-2-data-storage">Metis Platform Architecture - Part 2: Data Storage</h1>
+<blockquote>
+<p><strong>Part 2 of 3</strong>: This document focuses on <strong>data storage architecture</strong> within the Metis platform. For complete context, refer to <a href="../architecture-overview/">Introduction to Metis</a> and <a href="../architecture-part-1/">Data Flow</a>.</p>
+</blockquote>
+<h2 id="introduction">💾 Introduction</h2>
+<p>Data storage is the foundation of the Metis platform, providing reliable, scalable, and secure data persistence across our multi-tenant architecture. This document covers database design, storage patterns, backup strategies, and data management practices that ensure data integrity and optimal performance.</p>
+<p>Our storage architecture supports:
+- <strong>Multi-tenant data isolation</strong>
+- <strong>Scalable storage solutions</strong>
+- <strong>Comprehensive backup and recovery</strong>
+- <strong>Performance optimization</strong></p>
+<hr/>
+<h2 id="storage-architecture-overview">🏗️ Storage Architecture Overview</h2>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                    METIS STORAGE ARCHITECTURE                   │
+├─────────────────────────────────────────────────────────────────┤
+│  🗄️ PRIMARY STORAGE                                            │
+│  ├─ PostgreSQL (Multi-tenant Database)                         │
+│  └─ Connection Pooling &amp; Query Optimization                    │
+├─────────────────────────────────────────────────────────────────┤
+│  📁 OBJECT STORAGE                                             │
+│  ├─ S3 (Documents, Images, Files)                              │
+│  └─ MinIO (Development Environment)                            │
+├─────────────────────────────────────────────────────────────────┤
+│  📊 ANALYTICS STORAGE                                          │
+│  ├─ ClickHouse (Event Analytics)                               │
+│  └─ DuckDB (Embedded Analytics)                                │
+├─────────────────────────────────────────────────────────────────┤
+│  🔄 WORKFLOW STORAGE                                           │
+│  ├─ Temporal Database                                          │
+│  └─ Workflow State Management                                  │
+├─────────────────────────────────────────────────────────────────┤
+│  ⚡ CACHING LAYER                                              │
+│  ├─ Redis (Session &amp; Query Cache)                              │
+│  └─ In-Memory Caching                                          │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr/>
+<h2 id="primary-database-postgresql">🗄️ Primary Database: PostgreSQL</h2>
+<h3 id="multi-tenant-database-design"><strong>Multi-Tenant Database Design</strong></h3>
+<p>Our PostgreSQL implementation uses a <strong>shared database, shared schema</strong> approach with tenant isolation through row-level security:</p>
+<h4 id="database-schema-structure">Database Schema Structure:</h4>
+<pre><code class="language-sql">-- Core tenant table
+CREATE TABLE tenants (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    subdomain VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Example multi-tenant table
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    tenant_id UUID NOT NULL REFERENCES tenants(id),
+    email VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    UNIQUE(tenant_id, email)
+);
+
+-- Row Level Security
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+CREATE POLICY tenant_isolation ON users
+    USING (tenant_id = current_setting('app.current_tenant')::UUID);
+</code></pre>
+<h3 id="connection-management"><strong>Connection Management</strong></h3>
+<h4 id="connection-pooling-configuration">Connection Pooling Configuration:</h4>
+<pre><code class="language-yaml">database:
+  host: localhost
+  port: 5432
+  name: metis_db
+  pool:
+    max_connections: 25
+    min_connections: 5
+    max_idle_time: 30m
+    max_lifetime: 1h
+</code></pre>
+<h3 id="query-optimization"><strong>Query Optimization</strong></h3>
+<h4 id="indexing-strategy">Indexing Strategy:</h4>
+<ul>
+<li><strong>Tenant-aware indexes</strong>: All queries include tenant_id</li>
+<li><strong>Composite indexes</strong>: Frequently queried column combinations</li>
+<li><strong>Partial indexes</strong>: For conditional queries</li>
+<li><strong>JSONB indexes</strong>: For flexible document storage</li>
+</ul>
+<pre><code class="language-sql">-- Tenant-aware composite index
+CREATE INDEX idx_users_tenant_email ON users(tenant_id, email);
+
+-- JSONB index for metadata
+CREATE INDEX idx_user_metadata ON users USING GIN(metadata);
+</code></pre>
+<hr/>
+<h2 id="object-storage-s3-minio">📁 Object Storage: S3 &amp; MinIO</h2>
+<h3 id="storage-strategy"><strong>Storage Strategy</strong></h3>
+<h4 id="file-organization">File Organization:</h4>
+<pre><code>s3://metis-storage/
+├── tenants/
+│   ├── {tenant-id}/
+│   │   ├── documents/
+│   │   │   ├── pan/
+│   │   │   ├── aadhar/
+│   │   │   └── bank-statements/
+│   │   ├── images/
+│   │   └── reports/
+├── models/
+│   ├── ocr/
+│   ├── risk-scoring/
+│   └── fraud-detection/
+└── system/
+    ├── logs/
+    ├── backups/
+    └── events/
+</code></pre>
+<h3 id="s3-configuration"><strong>S3 Configuration</strong></h3>
+<h4 id="bucket-policies">Bucket Policies:</h4>
+<pre><code class="language-json">{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {"AWS": "arn:aws:iam::account:role/MetisAppRole"},
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Resource": "arn:aws:s3:::metis-storage/tenants/*"
+    }
+  ]
+}
+</code></pre>
+<h4 id="lifecycle-management">Lifecycle Management:</h4>
+<ul>
+<li><strong>Standard</strong>: Active documents (0-30 days)</li>
+<li><strong>IA</strong>: Archived documents (30-90 days)</li>
+<li><strong>Glacier</strong>: Long-term storage (90+ days)</li>
+</ul>
+<hr/>
+<h2 id="analytics-storage">📊 Analytics Storage</h2>
+<h3 id="clickhouse-for-event-analytics"><strong>ClickHouse for Event Analytics</strong></h3>
+<h4 id="event-storage-schema">Event Storage Schema:</h4>
+<pre><code class="language-sql">CREATE TABLE events (
+    event_id UUID,
+    tenant_id UUID,
+    event_type String,
+    event_data String,
+    user_id Nullable(UUID),
+    timestamp DateTime64(3),
+    created_date Date MATERIALIZED toDate(timestamp)
+) ENGINE = MergeTree()
+PARTITION BY created_date
+ORDER BY (tenant_id, event_type, timestamp);
+</code></pre>
+<h4 id="query-patterns">Query Patterns:</h4>
+<pre><code class="language-sql">-- Tenant-specific event analytics
+SELECT
+    event_type,
+    count() as event_count,
+    toStartOfHour(timestamp) as hour
+FROM events
+WHERE tenant_id = '...'
+    AND created_date &gt;= today() - 7
+GROUP BY event_type, hour
+ORDER BY hour;
+</code></pre>
+<h3 id="duckdb-for-embedded-analytics"><strong>DuckDB for Embedded Analytics</strong></h3>
+<h4 id="use-cases">Use Cases:</h4>
+<ul>
+<li><strong>Ad-hoc queries</strong>: Business intelligence queries</li>
+<li><strong>Report generation</strong>: Scheduled reporting</li>
+<li><strong>Data exploration</strong>: Interactive analysis</li>
+</ul>
+<pre><code class="language-sql">-- Combine S3 and local data
+SELECT
+    t.name as tenant_name,
+    count(*) as user_count
+FROM 's3://metis-storage/exports/users.parquet' u
+JOIN tenants t ON u.tenant_id = t.id
+GROUP BY t.name;
+</code></pre>
+<hr/>
+<h2 id="workflow-storage-temporal">🔄 Workflow Storage: Temporal</h2>
+<h3 id="workflow-state-management"><strong>Workflow State Management</strong></h3>
+<h4 id="temporal-database-schema">Temporal Database Schema:</h4>
+<ul>
+<li><strong>Workflow executions</strong>: Current and historical workflows</li>
+<li><strong>Activity tasks</strong>: Individual workflow steps</li>
+<li><strong>Timer tasks</strong>: Scheduled operations</li>
+<li><strong>Visibility records</strong>: Workflow search and filtering</li>
+</ul>
+<h4 id="retention-policies">Retention Policies:</h4>
+<pre><code class="language-yaml">temporal:
+  retention:
+    workflow_execution_retention: 30d
+    visibility_archival: 7d
+    history_archival: 90d
+</code></pre>
+<hr/>
+<h2 id="caching-strategy">⚡ Caching Strategy</h2>
+<h3 id="redis-implementation"><strong>Redis Implementation</strong></h3>
+<h4 id="cache-patterns">Cache Patterns:</h4>
+<pre><code class="language-go">// Session caching
+func CacheUserSession(userID string, session *Session) error {
+    key := fmt.Sprintf("session:%s", userID)
+    return redis.Set(key, session, 24*time.Hour)
+}
+
+// Query result caching
+func CacheQueryResult(query string, result interface{}) error {
+    key := fmt.Sprintf("query:%s", hashQuery(query))
+    return redis.Set(key, result, 15*time.Minute)
+}
+</code></pre>
+<h4 id="cache-invalidation">Cache Invalidation:</h4>
+<ul>
+<li><strong>TTL-based</strong>: Automatic expiration</li>
+<li><strong>Event-driven</strong>: Invalidate on data changes</li>
+<li><strong>Manual</strong>: Explicit cache clearing</li>
+</ul>
+<hr/>
+<h2 id="data-security-compliance">🔒 Data Security &amp; Compliance</h2>
+<h3 id="encryption"><strong>Encryption</strong></h3>
+<h4 id="at-rest">At Rest:</h4>
+<ul>
+<li><strong>Database</strong>: PostgreSQL TDE (Transparent Data Encryption)</li>
+<li><strong>S3</strong>: Server-side encryption with KMS</li>
+<li><strong>Backups</strong>: Encrypted backup storage</li>
+</ul>
+<h4 id="in-transit">In Transit:</h4>
+<ul>
+<li><strong>TLS 1.3</strong>: All database connections</li>
+<li><strong>HTTPS</strong>: All API communications</li>
+<li><strong>VPN</strong>: Internal service communication</li>
+</ul>
+<h3 id="data-privacy"><strong>Data Privacy</strong></h3>
+<h4 id="gdpr-compliance">GDPR Compliance:</h4>
+<ul>
+<li><strong>Data minimization</strong>: Store only necessary data</li>
+<li><strong>Right to erasure</strong>: Automated data deletion</li>
+<li><strong>Data portability</strong>: Export capabilities</li>
+<li><strong>Audit trails</strong>: Complete access logging</li>
+</ul>
+<hr/>
+<h2 id="backup-recovery">💾 Backup &amp; Recovery</h2>
+<h3 id="backup-strategy"><strong>Backup Strategy</strong></h3>
+<div class="mermaid">flowchart TD
+    A[Continuous WAL Backup] --&gt; B[Point-in-Time Recovery]
+    C[Daily Full Backup] --&gt; D[Weekly Archive]
+    E[S3 Versioning] --&gt; F[Cross-Region Replication]
+    G[Event Stream Backup] --&gt; H[Analytics Recovery]
+
+    style A fill:#e1f5fe
+    style C fill:#e8f5e8
+    style E fill:#fff3e0
+    style G fill:#f3e5f5
+</div>
+<h4 id="backup-schedule">Backup Schedule:</h4>
+<ul>
+<li><strong>Continuous</strong>: WAL (Write-Ahead Log) streaming</li>
+<li><strong>Daily</strong>: Full database backup</li>
+<li><strong>Weekly</strong>: Archive to long-term storage</li>
+<li><strong>Monthly</strong>: Disaster recovery testing</li>
+</ul>
+<h3 id="recovery-procedures"><strong>Recovery Procedures</strong></h3>
+<h4 id="rtorpo-targets">RTO/RPO Targets:</h4>
+<ul>
+<li><strong>RTO (Recovery Time Objective)</strong>: 4 hours</li>
+<li><strong>RPO (Recovery Point Objective)</strong>: 15 minutes</li>
+<li><strong>Data Loss Tolerance</strong>: &lt; 1 hour</li>
+</ul>
+<hr/>
+<h2 id="performance-optimization">📈 Performance Optimization</h2>
+<h3 id="database-performance"><strong>Database Performance</strong></h3>
+<h4 id="query-optimization_1">Query Optimization:</h4>
+<pre><code class="language-sql">-- Efficient tenant-aware queries
+EXPLAIN (ANALYZE, BUFFERS)
+SELECT * FROM users
+WHERE tenant_id = $1 AND email = $2;
+
+-- Index usage verification
+SELECT schemaname, tablename, indexname, idx_scan, idx_tup_read
+FROM pg_stat_user_indexes
+WHERE idx_scan &gt; 0;
+</code></pre>
+<h4 id="connection-pooling">Connection Pooling:</h4>
+<ul>
+<li><strong>PgBouncer</strong>: Connection pooling middleware</li>
+<li><strong>Pool sizing</strong>: Based on concurrent users</li>
+<li><strong>Connection limits</strong>: Prevent database overload</li>
+</ul>
+<h3 id="storage-performance"><strong>Storage Performance</strong></h3>
+<h4 id="s3-optimization">S3 Optimization:</h4>
+<ul>
+<li><strong>Multipart uploads</strong>: Large file handling</li>
+<li><strong>Transfer acceleration</strong>: Global content delivery</li>
+<li><strong>Request patterns</strong>: Optimize for access patterns</li>
+</ul>
+<hr/>
+<h2 id="monitoring-alerting">🔍 Monitoring &amp; Alerting</h2>
+<h3 id="database-monitoring"><strong>Database Monitoring</strong></h3>
+<h4 id="key-metrics">Key Metrics:</h4>
+<ul>
+<li><strong>Connection count</strong>: Active/idle connections</li>
+<li><strong>Query performance</strong>: Slow query identification</li>
+<li><strong>Lock contention</strong>: Blocking queries</li>
+<li><strong>Replication lag</strong>: Backup synchronization</li>
+</ul>
+<h4 id="alerts">Alerts:</h4>
+<pre><code class="language-yaml">alerts:
+  - name: high_connection_count
+    condition: connections &gt; 80% of max
+    severity: warning
+
+  - name: slow_queries
+    condition: query_time &gt; 5s
+    severity: critical
+
+  - name: disk_space
+    condition: disk_usage &gt; 85%
+    severity: warning
+</code></pre>
+<h3 id="storage-monitoring"><strong>Storage Monitoring</strong></h3>
+<h4 id="s3-metrics">S3 Metrics:</h4>
+<ul>
+<li><strong>Storage utilization</strong>: Bucket size growth</li>
+<li><strong>Request patterns</strong>: GET/PUT request rates</li>
+<li><strong>Error rates</strong>: Failed operations</li>
+<li><strong>Cost tracking</strong>: Storage and transfer costs</li>
+</ul>
+<hr/>
+<h2 id="common-pitfalls-solutions">⚠️ Common Pitfalls &amp; Solutions</h2>
+<h3 id="1-connection-pool-exhaustion"><strong>1. Connection Pool Exhaustion</strong> 🚨</h3>
+<p><strong>Problem</strong>: Too many concurrent connections
+<strong>Solution</strong>:
+- Implement connection pooling
+- Set appropriate pool sizes
+- Monitor connection usage
+- Use read replicas for read-heavy workloads</p>
+<h3 id="2-tenant-data-leakage"><strong>2. Tenant Data Leakage</strong> 🔒</h3>
+<p><strong>Problem</strong>: Cross-tenant data access
+<strong>Solution</strong>:
+- Row-level security policies
+- Application-level tenant validation
+- Regular security audits
+- Automated testing for data isolation</p>
+<h3 id="3-storage-cost-explosion"><strong>3. Storage Cost Explosion</strong> 💰</h3>
+<p><strong>Problem</strong>: Uncontrolled storage growth
+<strong>Solution</strong>:
+- Implement lifecycle policies
+- Regular data archival
+- Compression strategies
+- Cost monitoring and alerts</p>
+<h3 id="4-backup-failures"><strong>4. Backup Failures</strong> 💾</h3>
+<p><strong>Problem</strong>: Backup corruption or failure
+<strong>Solution</strong>:
+- Regular backup testing
+- Multiple backup strategies
+- Automated backup verification
+- Cross-region backup replication</p>
+<hr/>
+<h2 id="future-enhancements">🎯 Future Enhancements</h2>
+<h3 id="immediate-improvements"><strong>Immediate Improvements</strong></h3>
+<ol>
+<li><strong>Read Replicas</strong>: Implement for read scaling</li>
+<li><strong>Partitioning</strong>: Table partitioning for large datasets</li>
+<li><strong>Compression</strong>: Database and storage compression</li>
+</ol>
+<h3 id="future-enhancements_1"><strong>Future Enhancements</strong></h3>
+<ol>
+<li><strong>Sharding</strong>: Horizontal database scaling</li>
+<li><strong>Multi-Region</strong>: Geographic data distribution</li>
+<li><strong>Data Lake</strong>: Advanced analytics infrastructure</li>
+<li><strong>Real-time Sync</strong>: Event-driven data synchronization</li>
+</ol>
+<hr/>
+<p><em>This document provides the foundation for understanding data storage within the Metis platform. Next: <a href="../architecture-part-3/">Data Processing</a> covers ML pipelines and business logic processing.</em></p>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: Architecture - Data flow" class="md-footer__link md-footer__link--prev" href="../architecture-part-1/">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</div>
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Previous
+              </span>
+<div class="md-ellipsis">
+                Architecture - Data flow
+              </div>
+</div>
+</a>
+<a aria-label="Next: Architecture - Data processing" class="md-footer__link md-footer__link--next" href="../architecture-part-3/">
+<div class="md-footer__title">
+<span class="md-footer__direction">
+                Next
+              </span>
+<div class="md-ellipsis">
+                Architecture - Data processing
+              </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+<script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.6.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>
