@@ -1,0 +1,2504 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../architecture-part-3/">
+      
+      
+        <link rel="next" href="../go-guidelines/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Python - Metis Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-coding-guidelines" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Metis Docs" class="md-header__button md-logo" aria-label="Metis Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Metis Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Metis Docs" class="md-nav__button md-logo" aria-label="Metis Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Metis Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tech
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tech
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Metis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data processing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Coding guidelines
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Coding guidelines
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Python
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-version-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐍 Python Version &amp; Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐍 Python Version &amp; Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependency Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      📁 Code Organization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📁 Code Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Organization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏷️ Naming Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏷️ Naming Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specific Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-hints-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Type Hints &amp; Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Type Hints &amp; Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-hints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Type Hints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docstring-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docstring Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fastapi-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 FastAPI Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 FastAPI Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Endpoints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ml-model-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 ML Model Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 ML Model Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-model-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Model Class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-model-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specific Model Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Error Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Exceptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#async-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Programming
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Logging &amp; Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Logging &amp; Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structured-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structured Logging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-quality-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Code Quality Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Code Quality Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linting-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linting Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-commit-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-commit Hooks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Go
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repo-structure.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Repo-structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-handling.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracing.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tracing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      📋 Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-version-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      🐍 Python Version &amp; Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🐍 Python Version &amp; Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Version
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependency Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      📁 Code Organization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📁 Code Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-organization" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Organization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏷️ Naming Conventions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏷️ Naming Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Rules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specific Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-hints-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Type Hints &amp; Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📝 Type Hints &amp; Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-hints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Type Hints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docstring-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docstring Standards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fastapi-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 FastAPI Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 FastAPI Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Endpoints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ml-model-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 ML Model Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 ML Model Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-model-class" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base Model Class
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#specific-model-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specific Model Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Error Handling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Error Handling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Exceptions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling Patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧪 Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧪 Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Structure
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Configuration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#async-programming" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Programming
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Management
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Logging &amp; Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Logging &amp; Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structured-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structured Logging
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-quality-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Code Quality Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Code Quality Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#linting-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Linting Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-commit-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-commit Hooks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="python-coding-guidelines">Python Coding Guidelines</h1>
+<blockquote>
+<p>Comprehensive Python coding standards for the Metis platform, focusing on ML services, FastAPI development, and data processing components.</p>
+</blockquote>
+<h2 id="overview">📋 Overview</h2>
+<p>These guidelines ensure consistent, maintainable, and performant Python code across our ML services, data processing pipelines, and API endpoints.</p>
+<p><strong>Key Principles:</strong>
+- <strong>Readability</strong>: Code should be self-documenting
+- <strong>Type Safety</strong>: Use type hints extensively
+- <strong>Performance</strong>: Optimize for ML workloads
+- <strong>Maintainability</strong>: Follow established patterns</p>
+<hr />
+<h2 id="python-version-environment">🐍 Python Version &amp; Environment</h2>
+<h3 id="python-version"><strong>Python Version</strong></h3>
+<ul>
+<li><strong>Minimum</strong>: Python 3.11+</li>
+<li><strong>Recommended</strong>: Python 3.12+</li>
+<li><strong>Virtual Environment</strong>: Always use virtual environments</li>
+</ul>
+<h3 id="dependency-management"><strong>Dependency Management</strong></h3>
+<pre><code class="language-toml"># pyproject.toml
+[tool.poetry]
+name = &quot;metis-ml&quot;
+version = &quot;1.0.0&quot;
+description = &quot;Metis ML Services&quot;
+authors = [&quot;Metis Team &lt;team@metis.com&gt;&quot;]
+
+[tool.poetry.dependencies]
+python = &quot;^3.11&quot;
+fastapi = &quot;^0.104.0&quot;
+uvicorn = &quot;^0.24.0&quot;
+pydantic = &quot;^2.5.0&quot;
+numpy = &quot;^1.25.0&quot;
+pandas = &quot;^2.1.0&quot;
+scikit-learn = &quot;^1.3.0&quot;
+</code></pre>
+<hr />
+<h2 id="code-organization">📁 Code Organization</h2>
+<h3 id="project-structure"><strong>Project Structure</strong></h3>
+<pre><code>cmd/ml/
+├── main.py                 # FastAPI application entry point
+├── ml_server/             # ML server modules
+│   ├── __init__.py
+│   ├── api/               # API endpoints
+│   │   ├── __init__.py
+│   │   ├── ocr.py
+│   │   └── risk.py
+│   ├── models/            # Model implementations
+│   │   ├── __init__.py
+│   │   ├── base.py
+│   │   ├── ocr_model.py
+│   │   └── risk_model.py
+│   ├── services/          # Business logic
+│   │   ├── __init__.py
+│   │   ├── document_processor.py
+│   │   └── feature_extractor.py
+│   └── utils/             # Utilities
+│       ├── __init__.py
+│       ├── config.py
+│       └── logging.py
+└── tests/                 # Test files
+    ├── __init__.py
+    ├── test_api/
+    ├── test_models/
+    └── test_services/
+</code></pre>
+<h3 id="file-organization"><strong>File Organization</strong></h3>
+<pre><code class="language-python">&quot;&quot;&quot;Module docstring describing the purpose and functionality.&quot;&quot;&quot;
+
+# Standard library imports
+import asyncio
+import logging
+from pathlib import Path
+from typing import Dict, List, Optional, Union
+
+# Third-party imports
+import numpy as np
+import pandas as pd
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
+
+# Local imports
+from ml_server.models.base import BaseModel
+from ml_server.utils.config import settings
+from ml_server.utils.logging import get_logger
+
+# Constants
+DEFAULT_TIMEOUT = 30
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
+
+# Module-level variables
+logger = get_logger(__name__)
+
+# Classes and functions follow...
+</code></pre>
+<hr />
+<h2 id="naming-conventions">🏷️ Naming Conventions</h2>
+<h3 id="general-rules"><strong>General Rules</strong></h3>
+<ul>
+<li><strong>snake_case</strong>: Variables, functions, modules</li>
+<li><strong>PascalCase</strong>: Classes, exceptions</li>
+<li><strong>UPPER_CASE</strong>: Constants</li>
+<li><strong>_private</strong>: Private attributes/methods</li>
+</ul>
+<h3 id="specific-examples"><strong>Specific Examples</strong></h3>
+<pre><code class="language-python"># Variables and functions
+user_id = &quot;user-123&quot;
+document_path = Path(&quot;/path/to/document&quot;)
+
+def process_document(file_path: Path) -&gt; Dict[str, Any]:
+    &quot;&quot;&quot;Process document and extract data.&quot;&quot;&quot;
+    pass
+
+def calculate_risk_score(features: np.ndarray) -&gt; float:
+    &quot;&quot;&quot;Calculate risk score from features.&quot;&quot;&quot;
+    pass
+
+# Classes
+class DocumentProcessor:
+    &quot;&quot;&quot;Handles document processing operations.&quot;&quot;&quot;
+
+    def __init__(self, model_path: Path):
+        self._model_path = model_path
+        self._model = None
+
+    def _load_model(self) -&gt; None:
+        &quot;&quot;&quot;Load the ML model (private method).&quot;&quot;&quot;
+        pass
+
+class OCRModel(BaseModel):
+    &quot;&quot;&quot;OCR model for text extraction.&quot;&quot;&quot;
+    pass
+
+# Constants
+MAX_RETRY_COUNT = 3
+DEFAULT_MODEL_PATH = Path(&quot;models/ocr/latest.pkl&quot;)
+SUPPORTED_FORMATS = [&quot;pdf&quot;, &quot;jpg&quot;, &quot;png&quot;]
+
+# Exceptions
+class ModelLoadError(Exception):
+    &quot;&quot;&quot;Raised when model loading fails.&quot;&quot;&quot;
+    pass
+
+class InvalidDocumentError(ValueError):
+    &quot;&quot;&quot;Raised when document format is invalid.&quot;&quot;&quot;
+    pass
+</code></pre>
+<hr />
+<h2 id="type-hints-documentation">📝 Type Hints &amp; Documentation</h2>
+<h3 id="type-hints"><strong>Type Hints</strong></h3>
+<pre><code class="language-python">from typing import Dict, List, Optional, Union, Tuple, Any
+from pathlib import Path
+import numpy as np
+import pandas as pd
+
+# Function signatures
+def extract_features(
+    document: Path,
+    model_type: str = &quot;default&quot;,
+    confidence_threshold: float = 0.8
+) -&gt; Tuple[np.ndarray, Dict[str, float]]:
+    &quot;&quot;&quot;Extract features from document.
+
+    Args:
+        document: Path to the document file
+        model_type: Type of model to use for extraction
+        confidence_threshold: Minimum confidence for feature extraction
+
+    Returns:
+        Tuple of (features array, confidence scores)
+
+    Raises:
+        InvalidDocumentError: If document format is not supported
+        ModelLoadError: If model fails to load
+    &quot;&quot;&quot;
+    pass
+
+# Class with type hints
+class RiskModel:
+    &quot;&quot;&quot;Risk assessment model.&quot;&quot;&quot;
+
+    def __init__(self, model_path: Path) -&gt; None:
+        self.model_path = model_path
+        self._model: Optional[Any] = None
+        self._features: List[str] = []
+
+    def predict(self, features: np.ndarray) -&gt; Dict[str, Union[float, str]]:
+        &quot;&quot;&quot;Predict risk score.&quot;&quot;&quot;
+        pass
+</code></pre>
+<h3 id="docstring-standards"><strong>Docstring Standards</strong></h3>
+<pre><code class="language-python">def process_loan_application(
+    application_data: Dict[str, Any],
+    model_version: str = &quot;latest&quot;
+) -&gt; Dict[str, Any]:
+    &quot;&quot;&quot;Process loan application through ML pipeline.
+
+    This function orchestrates the complete loan processing workflow,
+    including document validation, feature extraction, and risk assessment.
+
+    Args:
+        application_data: Dictionary containing application information
+            - applicant_id (str): Unique applicant identifier
+            - documents (List[Path]): List of document file paths
+            - amount (float): Requested loan amount
+        model_version: Version of the model to use for processing
+
+    Returns:
+        Dictionary containing processing results:
+            - risk_score (float): Calculated risk score (0.0 to 1.0)
+            - decision (str): Approval decision (&quot;approved&quot;, &quot;rejected&quot;, &quot;review&quot;)
+            - confidence (float): Model confidence in the decision
+            - processing_time (float): Time taken for processing in seconds
+
+    Raises:
+        InvalidDocumentError: If any document is in unsupported format
+        ModelLoadError: If the specified model version cannot be loaded
+        ProcessingError: If processing fails due to data issues
+
+    Example:
+        &gt;&gt;&gt; application = {
+        ...     &quot;applicant_id&quot;: &quot;app-123&quot;,
+        ...     &quot;documents&quot;: [Path(&quot;pan.jpg&quot;), Path(&quot;aadhar.pdf&quot;)],
+        ...     &quot;amount&quot;: 50000.0
+        ... }
+        &gt;&gt;&gt; result = process_loan_application(application)
+        &gt;&gt;&gt; print(result[&quot;decision&quot;])
+        &quot;approved&quot;
+    &quot;&quot;&quot;
+    pass
+</code></pre>
+<hr />
+<h2 id="fastapi-development">🚀 FastAPI Development</h2>
+<h3 id="application-structure"><strong>Application Structure</strong></h3>
+<pre><code class="language-python"># main.py
+from fastapi import FastAPI, HTTPException, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
+import uvicorn
+
+from ml_server.api import ocr, risk
+from ml_server.utils.config import settings
+from ml_server.utils.logging import setup_logging
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    &quot;&quot;&quot;Manage application lifespan.&quot;&quot;&quot;
+    # Startup
+    setup_logging()
+    logger.info(&quot;Starting ML API server&quot;)
+
+    # Load models
+    await load_models()
+
+    yield
+
+    # Shutdown
+    logger.info(&quot;Shutting down ML API server&quot;)
+    await cleanup_models()
+
+app = FastAPI(
+    title=&quot;Metis ML API&quot;,
+    description=&quot;Machine Learning services for the Metis platform&quot;,
+    version=&quot;1.0.0&quot;,
+    lifespan=lifespan
+)
+
+# Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.allowed_origins,
+    allow_credentials=True,
+    allow_methods=[&quot;*&quot;],
+    allow_headers=[&quot;*&quot;],
+)
+
+# Include routers
+app.include_router(ocr.router, prefix=&quot;/api/v1/ocr&quot;, tags=[&quot;OCR&quot;])
+app.include_router(risk.router, prefix=&quot;/api/v1/risk&quot;, tags=[&quot;Risk&quot;])
+
+@app.get(&quot;/health&quot;)
+async def health_check():
+    &quot;&quot;&quot;Health check endpoint.&quot;&quot;&quot;
+    return {&quot;status&quot;: &quot;healthy&quot;, &quot;version&quot;: &quot;1.0.0&quot;}
+
+if __name__ == &quot;__main__&quot;:
+    uvicorn.run(
+        &quot;main:app&quot;,
+        host=&quot;0.0.0.0&quot;,
+        port=8000,
+        reload=settings.debug
+    )
+</code></pre>
+<h3 id="api-endpoints"><strong>API Endpoints</strong></h3>
+<pre><code class="language-python"># ml_server/api/ocr.py
+from fastapi import APIRouter, HTTPException, UploadFile, File, Depends
+from pydantic import BaseModel, Field
+from typing import Dict, List, Optional
+import asyncio
+
+from ml_server.models.ocr_model import OCRModel
+from ml_server.services.document_processor import DocumentProcessor
+from ml_server.utils.dependencies import get_ocr_model, get_document_processor
+
+router = APIRouter()
+
+class OCRRequest(BaseModel):
+    &quot;&quot;&quot;OCR processing request.&quot;&quot;&quot;
+    document_type: str = Field(..., description=&quot;Type of document (pan, aadhar, etc.)&quot;)
+    confidence_threshold: float = Field(0.8, ge=0.0, le=1.0)
+    extract_fields: bool = Field(True, description=&quot;Whether to extract specific fields&quot;)
+
+class OCRResponse(BaseModel):
+    &quot;&quot;&quot;OCR processing response.&quot;&quot;&quot;
+    extracted_text: str
+    confidence: float
+    fields: Optional[Dict[str, str]] = None
+    processing_time: float
+
+@router.post(&quot;/process&quot;, response_model=OCRResponse)
+async def process_document(
+    file: UploadFile = File(...),
+    request: OCRRequest = Depends(),
+    ocr_model: OCRModel = Depends(get_ocr_model),
+    processor: DocumentProcessor = Depends(get_document_processor)
+) -&gt; OCRResponse:
+    &quot;&quot;&quot;Process document through OCR pipeline.&quot;&quot;&quot;
+
+    # Validate file
+    if not file.content_type.startswith(('image/', 'application/pdf')):
+        raise HTTPException(
+            status_code=400,
+            detail=&quot;Unsupported file type. Only images and PDFs are allowed.&quot;
+        )
+
+    try:
+        # Process document
+        start_time = asyncio.get_event_loop().time()
+
+        result = await processor.process_document(
+            file=file,
+            document_type=request.document_type,
+            confidence_threshold=request.confidence_threshold
+        )
+
+        processing_time = asyncio.get_event_loop().time() - start_time
+
+        return OCRResponse(
+            extracted_text=result.text,
+            confidence=result.confidence,
+            fields=result.fields if request.extract_fields else None,
+            processing_time=processing_time
+        )
+
+    except Exception as e:
+        logger.error(f&quot;OCR processing failed: {e}&quot;)
+        raise HTTPException(status_code=500, detail=&quot;OCR processing failed&quot;)
+</code></pre>
+<hr />
+<h2 id="ml-model-development">🧠 ML Model Development</h2>
+<h3 id="base-model-class"><strong>Base Model Class</strong></h3>
+<pre><code class="language-python"># ml_server/models/base.py
+from abc import ABC, abstractmethod
+from pathlib import Path
+from typing import Any, Dict, Optional
+import pickle
+import joblib
+import numpy as np
+
+class BaseModel(ABC):
+    &quot;&quot;&quot;Base class for all ML models.&quot;&quot;&quot;
+
+    def __init__(self, model_path: Path, model_name: str):
+        self.model_path = model_path
+        self.model_name = model_name
+        self._model: Optional[Any] = None
+        self._is_loaded = False
+
+    @abstractmethod
+    def preprocess(self, data: Any) -&gt; np.ndarray:
+        &quot;&quot;&quot;Preprocess input data for model.&quot;&quot;&quot;
+        pass
+
+    @abstractmethod
+    def predict(self, features: np.ndarray) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Make predictions using the model.&quot;&quot;&quot;
+        pass
+
+    @abstractmethod
+    def postprocess(self, predictions: np.ndarray) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Postprocess model predictions.&quot;&quot;&quot;
+        pass
+
+    def load_model(self) -&gt; None:
+        &quot;&quot;&quot;Load the ML model from disk.&quot;&quot;&quot;
+        if self._is_loaded:
+            return
+
+        try:
+            if self.model_path.suffix == '.pkl':
+                with open(self.model_path, 'rb') as f:
+                    self._model = pickle.load(f)
+            elif self.model_path.suffix == '.joblib':
+                self._model = joblib.load(self.model_path)
+            else:
+                raise ValueError(f&quot;Unsupported model format: {self.model_path.suffix}&quot;)
+
+            self._is_loaded = True
+            logger.info(f&quot;Model {self.model_name} loaded successfully&quot;)
+
+        except Exception as e:
+            logger.error(f&quot;Failed to load model {self.model_name}: {e}&quot;)
+            raise ModelLoadError(f&quot;Failed to load model: {e}&quot;)
+
+    def is_loaded(self) -&gt; bool:
+        &quot;&quot;&quot;Check if model is loaded.&quot;&quot;&quot;
+        return self._is_loaded
+</code></pre>
+<h3 id="specific-model-implementation"><strong>Specific Model Implementation</strong></h3>
+<pre><code class="language-python"># ml_server/models/risk_model.py
+import numpy as np
+import pandas as pd
+from typing import Dict, List, Any
+from pathlib import Path
+
+from .base import BaseModel
+
+class RiskModel(BaseModel):
+    &quot;&quot;&quot;Risk assessment model for loan applications.&quot;&quot;&quot;
+
+    def __init__(self, model_path: Path, feature_config_path: Path):
+        super().__init__(model_path, &quot;risk_model&quot;)
+        self.feature_config_path = feature_config_path
+        self._feature_names: List[str] = []
+        self._feature_config: Dict[str, Any] = {}
+
+    def load_model(self) -&gt; None:
+        &quot;&quot;&quot;Load model and feature configuration.&quot;&quot;&quot;
+        super().load_model()
+
+        # Load feature configuration
+        with open(self.feature_config_path, 'r') as f:
+            self._feature_config = json.load(f)
+
+        self._feature_names = self._feature_config.get('features', [])
+
+    def preprocess(self, application_data: Dict[str, Any]) -&gt; np.ndarray:
+        &quot;&quot;&quot;Preprocess application data into features.&quot;&quot;&quot;
+        features = []
+
+        for feature_name in self._feature_names:
+            feature_config = self._feature_config['feature_definitions'][feature_name]
+
+            if feature_config['type'] == 'numerical':
+                value = application_data.get(feature_name, 0.0)
+                # Apply scaling if configured
+                if 'scaling' in feature_config:
+                    value = self._apply_scaling(value, feature_config['scaling'])
+                features.append(value)
+
+            elif feature_config['type'] == 'categorical':
+                value = application_data.get(feature_name, 'unknown')
+                # One-hot encoding
+                encoded = self._encode_categorical(value, feature_config['categories'])
+                features.extend(encoded)
+
+        return np.array(features).reshape(1, -1)
+
+    def predict(self, features: np.ndarray) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Predict risk score and category.&quot;&quot;&quot;
+        if not self._is_loaded:
+            self.load_model()
+
+        # Get prediction
+        risk_score = self._model.predict_proba(features)[0][1]  # Probability of default
+        risk_category = self._categorize_risk(risk_score)
+
+        # Get feature importance for explanation
+        feature_importance = self._get_feature_importance(features)
+
+        return {
+            'risk_score': float(risk_score),
+            'risk_category': risk_category,
+            'confidence': self._calculate_confidence(features),
+            'feature_importance': feature_importance,
+            'model_version': self._get_model_version()
+        }
+
+    def postprocess(self, predictions: np.ndarray) -&gt; Dict[str, Any]:
+        &quot;&quot;&quot;Postprocess predictions (already handled in predict method).&quot;&quot;&quot;
+        return predictions
+
+    def _categorize_risk(self, risk_score: float) -&gt; str:
+        &quot;&quot;&quot;Categorize risk score into risk levels.&quot;&quot;&quot;
+        if risk_score &lt; 0.3:
+            return &quot;low&quot;
+        elif risk_score &lt; 0.7:
+            return &quot;medium&quot;
+        else:
+            return &quot;high&quot;
+
+    def _calculate_confidence(self, features: np.ndarray) -&gt; float:
+        &quot;&quot;&quot;Calculate model confidence in prediction.&quot;&quot;&quot;
+        # Implementation depends on model type
+        probabilities = self._model.predict_proba(features)[0]
+        return float(max(probabilities))
+
+    def _get_feature_importance(self, features: np.ndarray) -&gt; Dict[str, float]:
+        &quot;&quot;&quot;Get feature importance for explanation.&quot;&quot;&quot;
+        if hasattr(self._model, 'feature_importances_'):
+            importance = self._model.feature_importances_
+            return dict(zip(self._feature_names, importance.tolist()))
+        return {}
+</code></pre>
+<hr />
+<h2 id="error-handling">🔧 Error Handling</h2>
+<h3 id="custom-exceptions"><strong>Custom Exceptions</strong></h3>
+<pre><code class="language-python"># ml_server/utils/exceptions.py
+class MetisMLError(Exception):
+    &quot;&quot;&quot;Base exception for Metis ML services.&quot;&quot;&quot;
+    pass
+
+class ModelLoadError(MetisMLError):
+    &quot;&quot;&quot;Raised when model loading fails.&quot;&quot;&quot;
+    pass
+
+class InvalidDocumentError(MetisMLError):
+    &quot;&quot;&quot;Raised when document is invalid or unsupported.&quot;&quot;&quot;
+    pass
+
+class ProcessingError(MetisMLError):
+    &quot;&quot;&quot;Raised when processing fails.&quot;&quot;&quot;
+    pass
+
+class FeatureExtractionError(MetisMLError):
+    &quot;&quot;&quot;Raised when feature extraction fails.&quot;&quot;&quot;
+    pass
+</code></pre>
+<h3 id="error-handling-patterns"><strong>Error Handling Patterns</strong></h3>
+<pre><code class="language-python">import logging
+from typing import Optional
+from fastapi import HTTPException
+
+logger = logging.getLogger(__name__)
+
+async def safe_process_document(
+    file_path: Path,
+    processor: DocumentProcessor
+) -&gt; Optional[Dict[str, Any]]:
+    &quot;&quot;&quot;Safely process document with error handling.&quot;&quot;&quot;
+    try:
+        result = await processor.process(file_path)
+        return result
+
+    except InvalidDocumentError as e:
+        logger.warning(f&quot;Invalid document {file_path}: {e}&quot;)
+        raise HTTPException(status_code=400, detail=str(e))
+
+    except ModelLoadError as e:
+        logger.error(f&quot;Model loading failed: {e}&quot;)
+        raise HTTPException(status_code=503, detail=&quot;Service temporarily unavailable&quot;)
+
+    except ProcessingError as e:
+        logger.error(f&quot;Processing failed for {file_path}: {e}&quot;)
+        raise HTTPException(status_code=500, detail=&quot;Processing failed&quot;)
+
+    except Exception as e:
+        logger.error(f&quot;Unexpected error processing {file_path}: {e}&quot;)
+        raise HTTPException(status_code=500, detail=&quot;Internal server error&quot;)
+
+# Retry decorator
+import asyncio
+from functools import wraps
+
+def retry_async(max_attempts: int = 3, delay: float = 1.0):
+    &quot;&quot;&quot;Retry decorator for async functions.&quot;&quot;&quot;
+    def decorator(func):
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+            last_exception = None
+
+            for attempt in range(max_attempts):
+                try:
+                    return await func(*args, **kwargs)
+                except Exception as e:
+                    last_exception = e
+                    if attempt &lt; max_attempts - 1:
+                        await asyncio.sleep(delay * (2 ** attempt))
+                        logger.warning(f&quot;Attempt {attempt + 1} failed, retrying: {e}&quot;)
+                    else:
+                        logger.error(f&quot;All {max_attempts} attempts failed: {e}&quot;)
+
+            raise last_exception
+        return wrapper
+    return decorator
+</code></pre>
+<hr />
+<h2 id="testing">🧪 Testing</h2>
+<h3 id="test-structure"><strong>Test Structure</strong></h3>
+<pre><code class="language-python"># tests/test_models/test_risk_model.py
+import pytest
+import numpy as np
+from pathlib import Path
+from unittest.mock import Mock, patch
+
+from ml_server.models.risk_model import RiskModel
+from ml_server.utils.exceptions import ModelLoadError
+
+class TestRiskModel:
+    &quot;&quot;&quot;Test suite for RiskModel.&quot;&quot;&quot;
+
+    @pytest.fixture
+    def sample_model_path(self, tmp_path):
+        &quot;&quot;&quot;Create a sample model file.&quot;&quot;&quot;
+        model_path = tmp_path / &quot;risk_model.pkl&quot;
+        # Create mock model file
+        return model_path
+
+    @pytest.fixture
+    def sample_feature_config(self, tmp_path):
+        &quot;&quot;&quot;Create sample feature configuration.&quot;&quot;&quot;
+        config_path = tmp_path / &quot;features.json&quot;
+        config = {
+            &quot;features&quot;: [&quot;income&quot;, &quot;age&quot;, &quot;employment_type&quot;],
+            &quot;feature_definitions&quot;: {
+                &quot;income&quot;: {&quot;type&quot;: &quot;numerical&quot;, &quot;scaling&quot;: {&quot;method&quot;: &quot;standard&quot;}},
+                &quot;age&quot;: {&quot;type&quot;: &quot;numerical&quot;},
+                &quot;employment_type&quot;: {&quot;type&quot;: &quot;categorical&quot;, &quot;categories&quot;: [&quot;salaried&quot;, &quot;self_employed&quot;]}
+            }
+        }
+        with open(config_path, 'w') as f:
+            json.dump(config, f)
+        return config_path
+
+    def test_model_initialization(self, sample_model_path, sample_feature_config):
+        &quot;&quot;&quot;Test model initialization.&quot;&quot;&quot;
+        model = RiskModel(sample_model_path, sample_feature_config)
+        assert model.model_path == sample_model_path
+        assert model.model_name == &quot;risk_model&quot;
+        assert not model.is_loaded()
+
+    @patch('ml_server.models.risk_model.joblib.load')
+    def test_model_loading_success(self, mock_load, sample_model_path, sample_feature_config):
+        &quot;&quot;&quot;Test successful model loading.&quot;&quot;&quot;
+        mock_model = Mock()
+        mock_load.return_value = mock_model
+
+        model = RiskModel(sample_model_path, sample_feature_config)
+        model.load_model()
+
+        assert model.is_loaded()
+        mock_load.assert_called_once()
+
+    def test_model_loading_failure(self, sample_feature_config, tmp_path):
+        &quot;&quot;&quot;Test model loading failure.&quot;&quot;&quot;
+        nonexistent_path = tmp_path / &quot;nonexistent.pkl&quot;
+        model = RiskModel(nonexistent_path, sample_feature_config)
+
+        with pytest.raises(ModelLoadError):
+            model.load_model()
+
+    def test_preprocess_valid_data(self, sample_model_path, sample_feature_config):
+        &quot;&quot;&quot;Test preprocessing with valid data.&quot;&quot;&quot;
+        model = RiskModel(sample_model_path, sample_feature_config)
+
+        application_data = {
+            &quot;income&quot;: 50000.0,
+            &quot;age&quot;: 30,
+            &quot;employment_type&quot;: &quot;salaried&quot;
+        }
+
+        features = model.preprocess(application_data)
+        assert isinstance(features, np.ndarray)
+        assert features.shape[0] == 1  # Single sample
+
+    @pytest.mark.asyncio
+    async def test_predict_integration(self, sample_model_path, sample_feature_config):
+        &quot;&quot;&quot;Integration test for prediction.&quot;&quot;&quot;
+        with patch('ml_server.models.risk_model.joblib.load') as mock_load:
+            # Mock model with predict_proba method
+            mock_model = Mock()
+            mock_model.predict_proba.return_value = np.array([[0.3, 0.7]])
+            mock_model.feature_importances_ = np.array([0.5, 0.3, 0.2])
+            mock_load.return_value = mock_model
+
+            model = RiskModel(sample_model_path, sample_feature_config)
+
+            application_data = {
+                &quot;income&quot;: 50000.0,
+                &quot;age&quot;: 30,
+                &quot;employment_type&quot;: &quot;salaried&quot;
+            }
+
+            features = model.preprocess(application_data)
+            result = model.predict(features)
+
+            assert &quot;risk_score&quot; in result
+            assert &quot;risk_category&quot; in result
+            assert &quot;confidence&quot; in result
+            assert 0.0 &lt;= result[&quot;risk_score&quot;] &lt;= 1.0
+</code></pre>
+<h3 id="test-configuration"><strong>Test Configuration</strong></h3>
+<pre><code class="language-python"># tests/conftest.py
+import pytest
+import asyncio
+from pathlib import Path
+from fastapi.testclient import TestClient
+
+from ml_server.main import app
+
+@pytest.fixture
+def client():
+    &quot;&quot;&quot;Test client for FastAPI app.&quot;&quot;&quot;
+    return TestClient(app)
+
+@pytest.fixture
+def sample_document(tmp_path):
+    &quot;&quot;&quot;Create a sample document for testing.&quot;&quot;&quot;
+    doc_path = tmp_path / &quot;sample.pdf&quot;
+    doc_path.write_bytes(b&quot;sample pdf content&quot;)
+    return doc_path
+
+@pytest.fixture(scope=&quot;session&quot;)
+def event_loop():
+    &quot;&quot;&quot;Create an instance of the default event loop for the test session.&quot;&quot;&quot;
+    loop = asyncio.get_event_loop_policy().new_event_loop()
+    yield loop
+    loop.close()
+</code></pre>
+<hr />
+<h2 id="performance-optimization">⚡ Performance Optimization</h2>
+<h3 id="async-programming"><strong>Async Programming</strong></h3>
+<pre><code class="language-python">import asyncio
+import aiofiles
+from concurrent.futures import ThreadPoolExecutor
+from typing import List
+
+# Async file operations
+async def read_document_async(file_path: Path) -&gt; bytes:
+    &quot;&quot;&quot;Read document asynchronously.&quot;&quot;&quot;
+    async with aiofiles.open(file_path, 'rb') as f:
+        return await f.read()
+
+# CPU-bound operations in thread pool
+executor = ThreadPoolExecutor(max_workers=4)
+
+async def process_documents_parallel(documents: List[Path]) -&gt; List[Dict[str, Any]]:
+    &quot;&quot;&quot;Process multiple documents in parallel.&quot;&quot;&quot;
+    tasks = []
+
+    for doc_path in documents:
+        task = asyncio.create_task(process_single_document(doc_path))
+        tasks.append(task)
+
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+
+    # Handle exceptions
+    processed_results = []
+    for i, result in enumerate(results):
+        if isinstance(result, Exception):
+            logger.error(f&quot;Failed to process {documents[i]}: {result}&quot;)
+        else:
+            processed_results.append(result)
+
+    return processed_results
+
+async def cpu_intensive_task(data: np.ndarray) -&gt; np.ndarray:
+    &quot;&quot;&quot;Run CPU-intensive task in thread pool.&quot;&quot;&quot;
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(executor, _cpu_intensive_operation, data)
+
+def _cpu_intensive_operation(data: np.ndarray) -&gt; np.ndarray:
+    &quot;&quot;&quot;CPU-intensive operation that runs in thread pool.&quot;&quot;&quot;
+    # Heavy computation here
+    return np.dot(data, data.T)
+</code></pre>
+<h3 id="memory-management"><strong>Memory Management</strong></h3>
+<pre><code class="language-python">import gc
+from contextlib import contextmanager
+
+@contextmanager
+def memory_cleanup():
+    &quot;&quot;&quot;Context manager for memory cleanup.&quot;&quot;&quot;
+    try:
+        yield
+    finally:
+        gc.collect()
+
+# Efficient data processing
+def process_large_dataset(data_path: Path, batch_size: int = 1000) -&gt; None:
+    &quot;&quot;&quot;Process large dataset in batches.&quot;&quot;&quot;
+    with memory_cleanup():
+        for chunk in pd.read_csv(data_path, chunksize=batch_size):
+            # Process chunk
+            processed_chunk = process_chunk(chunk)
+
+            # Save results
+            save_processed_chunk(processed_chunk)
+
+            # Clear memory
+            del chunk, processed_chunk
+            gc.collect()
+</code></pre>
+<hr />
+<h2 id="logging-monitoring">📊 Logging &amp; Monitoring</h2>
+<h3 id="structured-logging"><strong>Structured Logging</strong></h3>
+<pre><code class="language-python"># ml_server/utils/logging.py
+import logging
+import json
+from typing import Any, Dict
+from datetime import datetime
+
+class StructuredFormatter(logging.Formatter):
+    &quot;&quot;&quot;Structured JSON formatter for logs.&quot;&quot;&quot;
+
+    def format(self, record: logging.LogRecord) -&gt; str:
+        log_entry = {
+            &quot;timestamp&quot;: datetime.utcnow().isoformat(),
+            &quot;level&quot;: record.levelname,
+            &quot;logger&quot;: record.name,
+            &quot;message&quot;: record.getMessage(),
+            &quot;module&quot;: record.module,
+            &quot;function&quot;: record.funcName,
+            &quot;line&quot;: record.lineno
+        }
+
+        # Add extra fields
+        if hasattr(record, 'extra_fields'):
+            log_entry.update(record.extra_fields)
+
+        return json.dumps(log_entry)
+
+def get_logger(name: str) -&gt; logging.Logger:
+    &quot;&quot;&quot;Get configured logger.&quot;&quot;&quot;
+    logger = logging.getLogger(name)
+
+    if not logger.handlers:
+        handler = logging.StreamHandler()
+        handler.setFormatter(StructuredFormatter())
+        logger.addHandler(handler)
+        logger.setLevel(logging.INFO)
+
+    return logger
+
+# Usage
+logger = get_logger(__name__)
+
+def process_with_logging(data: Dict[str, Any]) -&gt; Dict[str, Any]:
+    &quot;&quot;&quot;Process data with structured logging.&quot;&quot;&quot;
+    logger.info(
+        &quot;Starting data processing&quot;,
+        extra={'extra_fields': {'data_size': len(data), 'operation': 'process'}}
+    )
+
+    try:
+        result = process_data(data)
+        logger.info(
+            &quot;Data processing completed successfully&quot;,
+            extra={'extra_fields': {'result_size': len(result)}}
+        )
+        return result
+
+    except Exception as e:
+        logger.error(
+            &quot;Data processing failed&quot;,
+            extra={'extra_fields': {'error': str(e), 'data_keys': list(data.keys())}}
+        )
+        raise
+</code></pre>
+<hr />
+<h2 id="code-quality-tools">🔍 Code Quality Tools</h2>
+<h3 id="linting-configuration"><strong>Linting Configuration</strong></h3>
+<pre><code class="language-toml"># pyproject.toml
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = &quot;black&quot;
+multi_line_output = 3
+line_length = 88
+
+[tool.pylint.messages_control]
+disable = &quot;C0330, C0326&quot;
+
+[tool.mypy]
+python_version = &quot;3.11&quot;
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = [&quot;tests&quot;]
+python_files = [&quot;test_*.py&quot;]
+python_classes = [&quot;Test*&quot;]
+python_functions = [&quot;test_*&quot;]
+addopts = &quot;-v --cov=ml_server --cov-report=html&quot;
+</code></pre>
+<h3 id="pre-commit-hooks"><strong>Pre-commit Hooks</strong></h3>
+<pre><code class="language-yaml"># .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.9.1
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.6.1
+    hooks:
+      - id: mypy
+</code></pre>
+<hr />
+<p><em>These guidelines ensure consistent, maintainable, and performant Python code across the Metis ML services and data processing components.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../architecture-part-3/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Architecture - Data processing">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Architecture - Data processing
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../go-guidelines/" class="md-footer__link md-footer__link--next" aria-label="Next: Go">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Go
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,4 +1,5 @@
 site_name: Metis Docs
+site_url: https://predictive-datasciences.github.io/metis-docs/
 
 nav:
   - Home: index.md

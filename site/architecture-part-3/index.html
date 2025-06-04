@@ -1,0 +1,2505 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../architecture-part-2/">
+      
+      
+        <link rel="next" href="../python-guidelines/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Architecture - Data processing - Metis Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#metis-platform-architecture-part-3-data-processing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Metis Docs" class="md-header__button md-logo" aria-label="Metis Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Metis Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture - Data processing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Metis Docs" class="md-nav__button md-logo" aria-label="Metis Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Metis Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tech
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tech
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Architecture
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Metis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture-part-2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data processing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture - Data processing
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processing-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ Processing Architecture Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ml-processing-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 ML Processing Layer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 ML Processing Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fastapi-ml-server-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      FastAPI ML Server Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FastAPI ML Server Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server Structure:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-common-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Common Models 🔄
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-client-specific-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Client-Specific Models 🎯
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-deployment-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Deployment &amp; Versioning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Deployment &amp; Versioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Registry:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-orchestration-with-temporal" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Workflow Orchestration with Temporal
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Workflow Orchestration with Temporal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Definition:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activity-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activity Implementation:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sequential-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Sequential Processing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-parallel-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Parallel Processing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-conditional-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Conditional Workflows:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#business-logic-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Business Logic Processing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Business Logic Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rules-engine-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rules Engine Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rules Engine Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rule Definition:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules-engine-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rules Engine Implementation:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-making-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision Making Logic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision Making Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#credit-decision-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Credit Decision Engine:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-processing-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Event Processing Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Event Processing Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#event-driven-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event-Driven Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Event-Driven Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#event-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event Consumer:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stream Processing:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 External Integrations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 External Integrations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#third-party-api-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Third-Party API Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Third-Party API Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bureau-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bureau Integration:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification Service:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processing-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processing Performance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processing Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#async-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Processing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caching Strategy:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Monitoring &amp; Observability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Monitoring &amp; Observability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processing-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processing Metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processing Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Metrics:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Monitoring:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Common Pitfalls &amp; Solutions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ Common Pitfalls &amp; Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ml-model-performance-degradation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. ML Model Performance Degradation 🧠
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-workflow-timeout-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Workflow Timeout Issues ⏰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-external-api-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. External API Failures 🔗
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-processing-bottlenecks" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Processing Bottlenecks ⚡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Future Enhancements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Future Enhancements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#immediate-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Immediate Improvements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#future-enhancements_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Enhancements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Coding guidelines
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Coding guidelines
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Python
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../go-guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Go
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repo-structure.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Repo-structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logging.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logging
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitoring.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Monitoring
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../error-handling.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Error handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracing.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tracing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Introduction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processing-architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ Processing Architecture Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ml-processing-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧠 ML Processing Layer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧠 ML Processing Layer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fastapi-ml-server-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      FastAPI ML Server Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FastAPI ML Server Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server Structure:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Categories
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-common-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Common Models 🔄
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-client-specific-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Client-Specific Models 🎯
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-deployment-versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Deployment &amp; Versioning
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Deployment &amp; Versioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Registry:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-orchestration-with-temporal" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Workflow Orchestration with Temporal
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Workflow Orchestration with Temporal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Definition:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activity-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Activity Implementation:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Patterns
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-sequential-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Sequential Processing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-parallel-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Parallel Processing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-conditional-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Conditional Workflows:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#business-logic-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚡ Business Logic Processing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚡ Business Logic Processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rules-engine-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rules Engine Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rules Engine Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rule Definition:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules-engine-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rules Engine Implementation:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-making-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision Making Logic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision Making Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#credit-decision-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Credit Decision Engine:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-processing-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Event Processing Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Event Processing Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#event-driven-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event-Driven Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Event-Driven Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#event-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event Consumer:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stream Processing:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-integrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 External Integrations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 External Integrations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#third-party-api-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Third-Party API Integration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Third-Party API Integration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bureau-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bureau Integration:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notification-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification Service:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      📈 Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📈 Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processing-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processing Performance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processing Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#async-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Async Processing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caching Strategy:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-observability" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Monitoring &amp; Observability
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Monitoring &amp; Observability">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processing-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processing Metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Processing Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Metrics:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#workflow-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Monitoring:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚠️ Common Pitfalls &amp; Solutions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚠️ Common Pitfalls &amp; Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ml-model-performance-degradation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. ML Model Performance Degradation 🧠
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-workflow-timeout-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Workflow Timeout Issues ⏰
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-external-api-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. External API Failures 🔗
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-processing-bottlenecks" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Processing Bottlenecks ⚡
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-enhancements" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Future Enhancements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Future Enhancements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#immediate-improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Immediate Improvements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#future-enhancements_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Future Enhancements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="metis-platform-architecture-part-3-data-processing">Metis Platform Architecture - Part 3: Data Processing</h1>
+<blockquote>
+<p><strong>Part 3 of 3</strong>: This document focuses on <strong>data processing architecture</strong> within the Metis platform. For complete context, refer to <a href="../architecture-overview/">Introduction to Metis</a>, <a href="../architecture-part-1/">Data Flow</a>, and <a href="../architecture-part-2/">Data Storage</a>.</p>
+</blockquote>
+<h2 id="introduction">⚙️ Introduction</h2>
+<p>Data processing is the intelligence layer of the Metis platform, transforming raw data into actionable insights through machine learning models, business logic, and workflow orchestration. This document covers ML pipelines, processing patterns, and orchestration strategies that power our platform's decision-making capabilities.</p>
+<p>Our processing architecture enables:
+- <strong>Real-time ML inference</strong>
+- <strong>Complex workflow orchestration</strong>
+- <strong>Scalable business logic processing</strong>
+- <strong>Event-driven data transformation</strong></p>
+<hr />
+<h2 id="processing-architecture-overview">🏗️ Processing Architecture Overview</h2>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                   METIS PROCESSING ARCHITECTURE                 │
+├─────────────────────────────────────────────────────────────────┤
+│  🧠 ML PROCESSING LAYER                                        │
+│  ├─ FastAPI ML Server (Python)                                 │
+│  ├─ Common Models (OCR, Classification)                        │
+│  └─ Client-Specific Models (Risk, Fraud)                       │
+├─────────────────────────────────────────────────────────────────┤
+│  🔄 WORKFLOW ORCHESTRATION                                     │
+│  ├─ Temporal Workflows                                         │
+│  ├─ Business Process Management                                │
+│  └─ State Machine Coordination                                 │
+├─────────────────────────────────────────────────────────────────┤
+│  ⚡ BUSINESS LOGIC PROCESSING                                  │
+│  ├─ Core App Services (Go)                                     │
+│  ├─ Rules Engine                                               │
+│  └─ Decision Making Logic                                      │
+├─────────────────────────────────────────────────────────────────┤
+│  📊 EVENT PROCESSING                                           │
+│  ├─ Event Consumers                                            │
+│  ├─ Stream Processing                                          │
+│  └─ Analytics Pipeline                                         │
+├─────────────────────────────────────────────────────────────────┤
+│  🔗 EXTERNAL INTEGRATIONS                                      │
+│  ├─ Third-party APIs                                           │
+│  ├─ Bureau Services                                            │
+│  └─ Notification Services                                      │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<hr />
+<h2 id="ml-processing-layer">🧠 ML Processing Layer</h2>
+<h3 id="fastapi-ml-server-architecture"><strong>FastAPI ML Server Architecture</strong></h3>
+<p>Our ML processing is handled by a dedicated Python FastAPI server that provides scalable model inference:</p>
+<h4 id="server-structure">Server Structure:</h4>
+<pre><code class="language-python"># cmd/ml/main.py
+from fastapi import FastAPI, HTTPException
+from pylibs.models import OCRModel, RiskModel
+from pylibs.preprocessing import DocumentProcessor
+
+app = FastAPI(title=&quot;Metis ML API&quot;, version=&quot;1.0.0&quot;)
+
+# Model initialization
+ocr_model = OCRModel()
+risk_model = RiskModel()
+processor = DocumentProcessor()
+
+@app.post(&quot;/ocr/process&quot;)
+async def process_document(file: UploadFile):
+    &quot;&quot;&quot;Process document through OCR pipeline&quot;&quot;&quot;
+    processed_data = await processor.preprocess(file)
+    result = ocr_model.predict(processed_data)
+    return {&quot;extracted_data&quot;: result}
+
+@app.post(&quot;/risk/score&quot;)
+async def calculate_risk_score(data: RiskInput):
+    &quot;&quot;&quot;Calculate risk score for given input&quot;&quot;&quot;
+    features = processor.extract_features(data)
+    score = risk_model.predict(features)
+    return {&quot;risk_score&quot;: score, &quot;confidence&quot;: score.confidence}
+</code></pre>
+<h3 id="model-categories"><strong>Model Categories</strong></h3>
+<h4 id="1-common-models">1. <strong>Common Models</strong> 🔄</h4>
+<p><strong>OCR Engine</strong>:</p>
+<pre><code class="language-python">class OCRModel:
+    def __init__(self):
+        self.model = load_pretrained_ocr_model()
+
+    def extract_text(self, image_data):
+        &quot;&quot;&quot;Extract text from document images&quot;&quot;&quot;
+        preprocessed = self.preprocess_image(image_data)
+        text_data = self.model.predict(preprocessed)
+        return self.postprocess_text(text_data)
+
+    def extract_fields(self, document_type, text_data):
+        &quot;&quot;&quot;Extract specific fields based on document type&quot;&quot;&quot;
+        field_extractor = self.get_field_extractor(document_type)
+        return field_extractor.extract(text_data)
+</code></pre>
+<p><strong>Document Classification</strong>:</p>
+<pre><code class="language-python">class DocumentClassifier:
+    def classify_document(self, image_data):
+        &quot;&quot;&quot;Classify document type (PAN, Aadhar, Bank Statement)&quot;&quot;&quot;
+        features = self.extract_visual_features(image_data)
+        document_type = self.classifier.predict(features)
+        confidence = self.classifier.predict_proba(features)
+        return {
+            &quot;document_type&quot;: document_type,
+            &quot;confidence&quot;: confidence,
+            &quot;processing_pipeline&quot;: self.get_pipeline(document_type)
+        }
+</code></pre>
+<h4 id="2-client-specific-models">2. <strong>Client-Specific Models</strong> 🎯</h4>
+<p><strong>Risk Scoring Models</strong>:</p>
+<pre><code class="language-python">class ClientRiskModel:
+    def __init__(self, client_id):
+        self.client_id = client_id
+        self.model = self.load_client_model(client_id)
+        self.features = self.load_feature_config(client_id)
+
+    def calculate_risk_score(self, applicant_data):
+        &quot;&quot;&quot;Calculate client-specific risk score&quot;&quot;&quot;
+        features = self.extract_features(applicant_data)
+        risk_score = self.model.predict(features)
+
+        return {
+            &quot;risk_score&quot;: risk_score,
+            &quot;risk_category&quot;: self.categorize_risk(risk_score),
+            &quot;contributing_factors&quot;: self.explain_prediction(features),
+            &quot;model_version&quot;: self.model.version
+        }
+</code></pre>
+<h3 id="model-deployment-versioning"><strong>Model Deployment &amp; Versioning</strong></h3>
+<h4 id="model-registry">Model Registry:</h4>
+<pre><code class="language-python">class ModelRegistry:
+    def __init__(self):
+        self.models = {}
+        self.versions = {}
+
+    def register_model(self, model_name, model_version, model_path):
+        &quot;&quot;&quot;Register new model version&quot;&quot;&quot;
+        model_key = f&quot;{model_name}:{model_version}&quot;
+        self.models[model_key] = self.load_model(model_path)
+        self.versions[model_name] = model_version
+
+    def get_model(self, model_name, version=None):
+        &quot;&quot;&quot;Get model by name and version&quot;&quot;&quot;
+        if version is None:
+            version = self.versions[model_name]
+        return self.models[f&quot;{model_name}:{version}&quot;]
+</code></pre>
+<hr />
+<h2 id="workflow-orchestration-with-temporal">🔄 Workflow Orchestration with Temporal</h2>
+<h3 id="workflow-architecture"><strong>Workflow Architecture</strong></h3>
+<p>Our platform uses Temporal for complex business process orchestration:</p>
+<h4 id="workflow-definition">Workflow Definition:</h4>
+<pre><code class="language-go">// pkg/workflows/loan_processing.go
+func LoanProcessingWorkflow(ctx workflow.Context, input LoanApplication) error {
+    logger := workflow.GetLogger(ctx)
+
+    // Step 1: Document Processing
+    var docResult DocumentProcessingResult
+    err := workflow.ExecuteActivity(ctx, ProcessDocumentsActivity, input.Documents).Get(ctx, &amp;docResult)
+    if err != nil {
+        return fmt.Errorf(&quot;document processing failed: %w&quot;, err)
+    }
+
+    // Step 2: Bureau Data Pull
+    var bureauResult BureauDataResult
+    err = workflow.ExecuteActivity(ctx, PullBureauDataActivity, input.ApplicantID).Get(ctx, &amp;bureauResult)
+    if err != nil {
+        return fmt.Errorf(&quot;bureau data pull failed: %w&quot;, err)
+    }
+
+    // Step 3: Risk Assessment
+    riskInput := RiskAssessmentInput{
+        Documents: docResult,
+        BureauData: bureauResult,
+        Application: input,
+    }
+
+    var riskResult RiskAssessmentResult
+    err = workflow.ExecuteActivity(ctx, RiskAssessmentActivity, riskInput).Get(ctx, &amp;riskResult)
+    if err != nil {
+        return fmt.Errorf(&quot;risk assessment failed: %w&quot;, err)
+    }
+
+    // Step 4: Decision Making
+    decision := makeDecision(riskResult)
+
+    // Step 5: Notification
+    return workflow.ExecuteActivity(ctx, NotifyApplicantActivity, decision).Get(ctx, nil)
+}
+</code></pre>
+<h4 id="activity-implementation">Activity Implementation:</h4>
+<pre><code class="language-go">func ProcessDocumentsActivity(ctx context.Context, documents []Document) (DocumentProcessingResult, error) {
+    var result DocumentProcessingResult
+
+    for _, doc := range documents {
+        // Call ML service for OCR processing
+        ocrResult, err := callMLService(&quot;/ocr/process&quot;, doc)
+        if err != nil {
+            return result, fmt.Errorf(&quot;OCR processing failed: %w&quot;, err)
+        }
+
+        // Validate extracted data
+        validationResult := validateExtractedData(ocrResult)
+
+        result.ProcessedDocuments = append(result.ProcessedDocuments, ProcessedDocument{
+            OriginalDocument: doc,
+            ExtractedData:    ocrResult,
+            ValidationResult: validationResult,
+        })
+    }
+
+    return result, nil
+}
+</code></pre>
+<h3 id="workflow-patterns"><strong>Workflow Patterns</strong></h3>
+<h4 id="1-sequential-processing">1. <strong>Sequential Processing</strong>:</h4>
+<pre><code class="language-go">// Linear workflow for simple processes
+func SimpleApprovalWorkflow(ctx workflow.Context, application Application) error {
+    // Step 1 -&gt; Step 2 -&gt; Step 3 -&gt; Decision
+    return executeSequentialSteps(ctx, application)
+}
+</code></pre>
+<h4 id="2-parallel-processing">2. <strong>Parallel Processing</strong>:</h4>
+<pre><code class="language-go">// Parallel execution for independent tasks
+func ParallelProcessingWorkflow(ctx workflow.Context, application Application) error {
+    // Execute multiple activities in parallel
+    futures := []workflow.Future{
+        workflow.ExecuteActivity(ctx, ProcessDocuments, application.Documents),
+        workflow.ExecuteActivity(ctx, PullBureauData, application.ApplicantID),
+        workflow.ExecuteActivity(ctx, ValidateApplication, application),
+    }
+
+    // Wait for all to complete
+    for _, future := range futures {
+        if err := future.Get(ctx, nil); err != nil {
+            return err
+        }
+    }
+
+    return nil
+}
+</code></pre>
+<h4 id="3-conditional-workflows">3. <strong>Conditional Workflows</strong>:</h4>
+<pre><code class="language-go">// Conditional execution based on business rules
+func ConditionalWorkflow(ctx workflow.Context, application Application) error {
+    if application.Amount &gt; 1000000 {
+        return executeHighValueWorkflow(ctx, application)
+    }
+    return executeStandardWorkflow(ctx, application)
+}
+</code></pre>
+<hr />
+<h2 id="business-logic-processing">⚡ Business Logic Processing</h2>
+<h3 id="rules-engine-architecture"><strong>Rules Engine Architecture</strong></h3>
+<p>Our rules engine provides flexible, configurable business logic:</p>
+<h4 id="rule-definition">Rule Definition:</h4>
+<pre><code class="language-go">type Rule struct {
+    ID          string                 `json:&quot;id&quot;`
+    Name        string                 `json:&quot;name&quot;`
+    Conditions  []Condition            `json:&quot;conditions&quot;`
+    Actions     []Action               `json:&quot;actions&quot;`
+    Priority    int                    `json:&quot;priority&quot;`
+    TenantID    string                 `json:&quot;tenant_id&quot;`
+}
+
+type Condition struct {
+    Field    string      `json:&quot;field&quot;`
+    Operator string      `json:&quot;operator&quot;`
+    Value    interface{} `json:&quot;value&quot;`
+}
+
+type Action struct {
+    Type   string                 `json:&quot;type&quot;`
+    Params map[string]interface{} `json:&quot;params&quot;`
+}
+</code></pre>
+<h4 id="rules-engine-implementation">Rules Engine Implementation:</h4>
+<pre><code class="language-go">type RulesEngine struct {
+    rules []Rule
+}
+
+func (re *RulesEngine) EvaluateRules(data map[string]interface{}) ([]Action, error) {
+    var actions []Action
+
+    // Sort rules by priority
+    sort.Slice(re.rules, func(i, j int) bool {
+        return re.rules[i].Priority &gt; re.rules[j].Priority
+    })
+
+    for _, rule := range re.rules {
+        if re.evaluateConditions(rule.Conditions, data) {
+            actions = append(actions, rule.Actions...)
+        }
+    }
+
+    return actions, nil
+}
+
+func (re *RulesEngine) evaluateConditions(conditions []Condition, data map[string]interface{}) bool {
+    for _, condition := range conditions {
+        if !re.evaluateCondition(condition, data) {
+            return false
+        }
+    }
+    return true
+}
+</code></pre>
+<h3 id="decision-making-logic"><strong>Decision Making Logic</strong></h3>
+<h4 id="credit-decision-engine">Credit Decision Engine:</h4>
+<pre><code class="language-go">type CreditDecisionEngine struct {
+    rulesEngine *RulesEngine
+    riskModel   *RiskModel
+}
+
+func (cde *CreditDecisionEngine) MakeDecision(application LoanApplication, riskScore float64) Decision {
+    // Combine rule-based and ML-based decisions
+    ruleDecision := cde.evaluateRules(application, riskScore)
+    mlDecision := cde.evaluateMLModel(application, riskScore)
+
+    // Final decision logic
+    finalDecision := cde.combineDecisions(ruleDecision, mlDecision)
+
+    return Decision{
+        Outcome:     finalDecision.Outcome,
+        Confidence:  finalDecision.Confidence,
+        Reasons:     finalDecision.Reasons,
+        Conditions:  finalDecision.Conditions,
+        Timestamp:   time.Now(),
+    }
+}
+</code></pre>
+<hr />
+<h2 id="event-processing-pipeline">📊 Event Processing Pipeline</h2>
+<h3 id="event-driven-architecture"><strong>Event-Driven Architecture</strong></h3>
+<p>Our platform processes events in real-time for analytics and monitoring:</p>
+<h4 id="event-consumer">Event Consumer:</h4>
+<pre><code class="language-go">type EventConsumer struct {
+    queue      *rabbitmq.Queue
+    processor  *EventProcessor
+    clickhouse *clickhouse.Client
+}
+
+func (ec *EventConsumer) ProcessEvents() error {
+    return ec.queue.Consume(func(event Event) error {
+        // Process event
+        processedEvent := ec.processor.Process(event)
+
+        // Store in analytics database
+        return ec.clickhouse.Insert(&quot;events&quot;, processedEvent)
+    })
+}
+</code></pre>
+<h4 id="stream-processing">Stream Processing:</h4>
+<pre><code class="language-go">type StreamProcessor struct {
+    inputStream  chan Event
+    outputStream chan ProcessedEvent
+}
+
+func (sp *StreamProcessor) ProcessStream() {
+    for event := range sp.inputStream {
+        // Real-time event processing
+        processedEvent := sp.processEvent(event)
+
+        // Trigger alerts if needed
+        if sp.shouldAlert(processedEvent) {
+            sp.triggerAlert(processedEvent)
+        }
+
+        sp.outputStream &lt;- processedEvent
+    }
+}
+</code></pre>
+<hr />
+<h2 id="external-integrations">🔗 External Integrations</h2>
+<h3 id="third-party-api-integration"><strong>Third-Party API Integration</strong></h3>
+<h4 id="bureau-integration">Bureau Integration:</h4>
+<pre><code class="language-go">type BureauClient struct {
+    httpClient *http.Client
+    config     BureauConfig
+}
+
+func (bc *BureauClient) PullCreditReport(applicantID string) (*CreditReport, error) {
+    // Implement retry logic with exponential backoff
+    return retry.Do(func() (*CreditReport, error) {
+        request := bc.buildRequest(applicantID)
+        response, err := bc.httpClient.Do(request)
+        if err != nil {
+            return nil, err
+        }
+
+        return bc.parseResponse(response)
+    }, retry.Attempts(3), retry.Delay(time.Second))
+}
+</code></pre>
+<h4 id="notification-service">Notification Service:</h4>
+<pre><code class="language-go">type NotificationService struct {
+    emailClient *email.Client
+    smsClient   *sms.Client
+}
+
+func (ns *NotificationService) SendDecisionNotification(applicant Applicant, decision Decision) error {
+    // Send email notification
+    emailErr := ns.emailClient.Send(email.Message{
+        To:      applicant.Email,
+        Subject: &quot;Loan Application Decision&quot;,
+        Body:    ns.buildEmailBody(decision),
+    })
+
+    // Send SMS notification
+    smsErr := ns.smsClient.Send(sms.Message{
+        To:   applicant.Phone,
+        Body: ns.buildSMSBody(decision),
+    })
+
+    // Return combined errors
+    return errors.Join(emailErr, smsErr)
+}
+</code></pre>
+<hr />
+<h2 id="performance-optimization">📈 Performance Optimization</h2>
+<h3 id="processing-performance"><strong>Processing Performance</strong></h3>
+<h4 id="async-processing">Async Processing:</h4>
+<pre><code class="language-go">type AsyncProcessor struct {
+    workerPool chan struct{}
+    taskQueue  chan Task
+}
+
+func (ap *AsyncProcessor) ProcessAsync(task Task) {
+    select {
+    case ap.taskQueue &lt;- task:
+        // Task queued successfully
+    default:
+        // Queue full, handle overflow
+        ap.handleOverflow(task)
+    }
+}
+
+func (ap *AsyncProcessor) worker() {
+    for {
+        select {
+        case &lt;-ap.workerPool:
+            task := &lt;-ap.taskQueue
+            ap.processTask(task)
+            ap.workerPool &lt;- struct{}{} // Return worker to pool
+        }
+    }
+}
+</code></pre>
+<h4 id="caching-strategy">Caching Strategy:</h4>
+<pre><code class="language-go">type ProcessingCache struct {
+    cache *redis.Client
+    ttl   time.Duration
+}
+
+func (pc *ProcessingCache) GetOrProcess(key string, processor func() (interface{}, error)) (interface{}, error) {
+    // Try cache first
+    if result, err := pc.cache.Get(key).Result(); err == nil {
+        return result, nil
+    }
+
+    // Process and cache result
+    result, err := processor()
+    if err != nil {
+        return nil, err
+    }
+
+    pc.cache.Set(key, result, pc.ttl)
+    return result, nil
+}
+</code></pre>
+<hr />
+<h2 id="monitoring-observability">🔍 Monitoring &amp; Observability</h2>
+<h3 id="processing-metrics"><strong>Processing Metrics</strong></h3>
+<h4 id="key-metrics">Key Metrics:</h4>
+<pre><code class="language-go">var (
+    processingDuration = prometheus.NewHistogramVec(
+        prometheus.HistogramOpts{
+            Name: &quot;processing_duration_seconds&quot;,
+            Help: &quot;Duration of processing operations&quot;,
+        },
+        []string{&quot;operation&quot;, &quot;tenant&quot;},
+    )
+
+    processingErrors = prometheus.NewCounterVec(
+        prometheus.CounterOpts{
+            Name: &quot;processing_errors_total&quot;,
+            Help: &quot;Total number of processing errors&quot;,
+        },
+        []string{&quot;operation&quot;, &quot;error_type&quot;},
+    )
+)
+</code></pre>
+<h4 id="workflow-monitoring">Workflow Monitoring:</h4>
+<pre><code class="language-go">func MonitorWorkflow(ctx workflow.Context, workflowName string) {
+    workflow.GetMetricsScope(ctx).Counter(&quot;workflow_started&quot;).Inc(1)
+
+    defer func() {
+        if workflow.IsReplaying(ctx) {
+            return
+        }
+        workflow.GetMetricsScope(ctx).Counter(&quot;workflow_completed&quot;).Inc(1)
+    }()
+}
+</code></pre>
+<hr />
+<h2 id="common-pitfalls-solutions">⚠️ Common Pitfalls &amp; Solutions</h2>
+<h3 id="1-ml-model-performance-degradation"><strong>1. ML Model Performance Degradation</strong> 🧠</h3>
+<p><strong>Problem</strong>: Model accuracy decreases over time
+<strong>Solution</strong>:
+- Implement model monitoring
+- Regular model retraining
+- A/B testing for model versions
+- Performance drift detection</p>
+<h3 id="2-workflow-timeout-issues"><strong>2. Workflow Timeout Issues</strong> ⏰</h3>
+<p><strong>Problem</strong>: Long-running workflows timing out
+<strong>Solution</strong>:
+- Implement heartbeat activities
+- Break workflows into smaller chunks
+- Use continue-as-new pattern
+- Proper timeout configuration</p>
+<h3 id="3-external-api-failures"><strong>3. External API Failures</strong> 🔗</h3>
+<p><strong>Problem</strong>: Third-party service unavailability
+<strong>Solution</strong>:
+- Implement circuit breakers
+- Retry with exponential backoff
+- Fallback mechanisms
+- Service health monitoring</p>
+<h3 id="4-processing-bottlenecks"><strong>4. Processing Bottlenecks</strong> ⚡</h3>
+<p><strong>Problem</strong>: Processing queue backlog
+<strong>Solution</strong>:
+- Horizontal scaling of workers
+- Load balancing strategies
+- Queue monitoring and alerting
+- Resource optimization</p>
+<hr />
+<h2 id="future-enhancements">🎯 Future Enhancements</h2>
+<h3 id="immediate-improvements"><strong>Immediate Improvements</strong></h3>
+<ol>
+<li><strong>Model Serving</strong>: Implement model serving infrastructure</li>
+<li><strong>Batch Processing</strong>: Add batch processing capabilities</li>
+<li><strong>Real-time Analytics</strong>: Stream processing for real-time insights</li>
+</ol>
+<h3 id="future-enhancements_1"><strong>Future Enhancements</strong></h3>
+<ol>
+<li><strong>AutoML</strong>: Automated model training and deployment</li>
+<li><strong>Edge Computing</strong>: Edge-based model inference</li>
+<li><strong>Federated Learning</strong>: Privacy-preserving model training</li>
+<li><strong>Advanced Orchestration</strong>: Complex workflow patterns</li>
+</ol>
+<hr />
+<p><em>This completes the three-part architecture series. Together with <a href="../architecture-overview/">Introduction to Metis</a>, <a href="../architecture-part-1/">Data Flow</a>, and <a href="../architecture-part-2/">Data Storage</a>, this provides a comprehensive view of the Metis platform architecture.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../architecture-part-2/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Architecture - Data storage">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Architecture - Data storage
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../python-guidelines/" class="md-footer__link md-footer__link--next" aria-label="Next: Python">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Python
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
