@@ -1,0 +1,34 @@
+site_name: Metis Docs
+
+nav:
+  - Home: index.md
+  - Tech:
+    - Architecture:
+      - Introduction to Metis: architecture-overview.md
+      - Architecture - Data flow: architecture-part-1.md
+      - Architecture - Data storage: architecture-part-2.md
+      - Architecture - Data processing: architecture-part-3.md
+    - Coding guidelines:
+      - Python: python-guidelines.md
+      - Go: go-guidelines.md
+      - Repo-structure: repo-structure.md
+      - Testing: testing.md
+      - Logging: logging.md
+      - Monitoring: monitoring.md
+      - Error handling: error-handling.md
+      - Metrics: metrics.md
+      - Tracing: tracing.md
+      - Configuration: configuration.md
+
+
+
+
+
+theme:
+  name: material
+  features:
+    - navigation.footer
+plugins:
+  - search
+  - mermaid2:
+      version: 11.6.0
